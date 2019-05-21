@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+.divheaderin{
+	float:left;
+	background:#8E8E8E;
+	color:#FFFFFF;
+	height:30px;
+	width:150px;
+	margin-top:10px;
+	margin-left:50px;
+	padding-left:20px;
+	padding-top:10px;
+	border-radius:5px
+}
+
+.divcenterin{
+	float:left;
+	background:#FFFFFF;
+	height:350px;
+	width:800px;
+	margin-top:200px;
+	margin-left:400px;
+	
+	
+}

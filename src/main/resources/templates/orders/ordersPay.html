@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>收款</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <!-- font CSS -->
+    <!-- font-awesome icons -->
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <!-- js-->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/modernizr.custom.js"></script>
+    <!--webfonts-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!--//webfonts-->
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
+    <!-- Metis Menu -->
+    <script src="js/metisMenu.min.js"></script>
+    <script src="js/custom.js"></script>
+    <link href="css/custom.css" rel="stylesheet">
+    <!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+<div class="main-content">
+    <div th:include="leftNav :: leftnav"></div>
+    <div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+    <div id="page-wrapper">
+        <div class="main-page">
+            <div class="blank-page widget-shadow scroll" id="style-2 div1">
+                <form class="form-horizontal" th:action="@{/payOrder}" th:object="${orders}" method="post">
+                    <!--隐藏订单id-->
+                    <input type="hidden" name="id" th:value="*{id}"/>
+                    <input type="hidden" name="consumerId" th:value="*{consumerId}">
+                    <input type="hidden" name="pressId" th:value="*{pressId}">
+                    <input type="hidden" name="copies" th:value="*{copies}">
+                    <input type="hidden" name="duration" th:value="*{duration}">
+                    <div class="form-group">
+                        <label for="payType" class="col-sm-2 control-label">支付类型</label>
+                        <div class="col-sm-10" id="payType">
+                            <div class="radio-inline">
+                                <label>
+                                    <input name="payType" type="radio" value="0"/>现金支付
+                                </label>
+                            </div>
+                            <div class="radio-inline">
+                                <label>
+                                    <input name="payType" type="radio" value="1"/>银行卡支付
+                                </label>
+                            </div>
+                            <div class="radio-inline">
+                                <label>
+                                    <input name="payType" type="radio" value="1"/>支票支付
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" th:if="${orders.status==0}">
+                        <label for="orderPrice" class="col-sm-2 control-label">收款金额</label>
+                        <div class="col-sm-10">
+                            <input type="number" readonly="readonly" class="form-control" name="price" id="orderPrice" th:value="${orders.price}"/>
+                            <input type="hidden" name="priceLonger" th:value="${orders.priceLonger}">
+                        </div>
+                    </div>
+                    <div class="form-group" th:if="${orders.status==6}">
+                        <label for="orderPriceLonger" class="col-sm-2 control-label">收款金额</label>
+                        <div class="col-sm-10">
+                            <input type="number" readonly="readonly" class="form-control" name="priceLonger" id="orderPriceLonger" th:value="${orders.priceLonger}"/>
+                            <input type="hidden" name="price" th:value="${orders.price}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stationId" class="col-sm-2 control-label">所属分站</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly="readonly" class="form-control" name="stationId" id="stationId" th:value="*{stationId}" placeholder="客户地址"/>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="zenkaId" th:value="*{zenkaId}">
+                    <input type="hidden" name="address" th:value="*{address}">
+                    <div class="form-group">
+                        <label for="startDate" class="col-sm-2 control-label">订单开始时间</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly="readonly" class="form-control" name="startDate" id="startDate" th:value="${#dates.format(orders.startDate, 'yyyy-MM-dd')}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate" class="col-sm-2 control-label">订单结束时间</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly="readonly" class="form-control" name="endDate" id="endDate" th:value="${#dates.format(orders.endDate, 'yyyy-MM-dd')}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="status" class="col-sm-2 control-label">支付类型</label>
+                        <div class="col-sm-10" id="status">
+                            <div class="radio-inline">
+                                <label>
+                                    <input name="status" type="radio" value="1"/>普通支付
+                                </label>
+                            </div>
+                            <div class="radio-inline">
+                                <label>
+                                    <input name="status" type="radio" value="2"/>延时支付
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="printId" th:value="*{printId}">
+                    <input type="hidden" name="xiaTime" th:value="*{xiaTime}">
+                    <input type="hidden" name="orderType" th:value="*{orderType}">
+                    <div class="form-group">
+                        <label for="payDate" class="col-sm-2 control-label">订单支付时间</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" name="payDate" id="payDate"/>
+                        </div>
+                    </div>
+                    <!--错误信息展示区-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <div th:if="${errorMsg!=null}" class="alert alert-danger" role="alert" th:text="${errorMsg}">
+                            </div>
+                        </div>
+                    </div>
+                    <!--按钮区-->
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <input type="submit" value="提交" class="btn btn-info">
+                            &nbsp;&nbsp;&nbsp;
+                            <a th:href="@{/ordersList}" class="btn btn-info">Back</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div th:include="foot :: footer"></div>
+</div>
+<!-- Classie -->
+<script src="js/classie.js"></script>
+<script>
+    var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+        showLeftPush = document.getElementById( 'showLeftPush' ),
+        body = document.body;
+
+    showLeftPush.onclick = function() {
+        classie.toggle( this, 'active' );
+        classie.toggle( body, 'cbp-spmenu-push-toright' );
+        classie.toggle( menuLeft, 'cbp-spmenu-open' );
+        disableOther( 'showLeftPush' );
+    };
+
+    function disableOther( button ) {
+        if( button !== 'showLeftPush' ) {
+            classie.toggle( showLeftPush, 'disabled' );
+        }
+    }
+</script>
+<!--scrolling js-->
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<!--//scrolling js-->
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.js"> </script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>添加订单</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <!-- font CSS -->
+    <!-- font-awesome icons -->
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <!-- js-->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/modernizr.custom.js"></script>
+    <!--webfonts-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!--//webfonts-->
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
+    <!-- Metis Menu -->
+    <script src="js/metisMenu.min.js"></script>
+    <script src="js/custom.js"></script>
+    <link href="css/custom.css" rel="stylesheet">
+    <!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+<div class="main-content">
+    <div th:include="leftNav :: leftnav"></div>
+    <div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+    <div id="page-wrapper">
+        <div class="main-page">
+            <div class="blank-page widget-shadow scroll" id="style-2 div1">
+                <form class="form-horizontal" th:action="@{/addOrders}" method="post">
+                    <!--表单内容-->
+                    <div class="form-group">
+                        <label for="consumerId" class="col-sm-2 control-label">客户id</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="consumerId" id="consumerId" placeholder="客户id"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div  style="float: right" class="col-sm-10">
+                            <select class="form-control1" name="pressId" id="pressId">
+                                <option th:value="${pressInfo.id}" th:text="${pressInfo.pressName}" th:each="pressInfo : ${pressInfos}">--</option>
+                            </select>
+                        </div>
+                        <div  style="float: right;margin-top:6px">
+                            <label>报刊Id：</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="copies" class="col-sm-2 control-label">份数</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="copies" id="copies" placeholder="份数"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="duration" class="col-sm-2 control-label">订阅时长（单位为周）</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="duration" id="duration" placeholder="份数"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderType" class="col-sm-2 control-label">订阅类型</label>
+                        <div class="col-sm-10" id="orderType">
+                            <div class="radio-inline">
+                                <label>
+                                    <input name="orderType" type="radio"  onclick="showAndHidden1();" value="0"/>普通订阅
+                                </label>
+                            </div>
+                            <div class="radio-inline">
+                                <label>
+                                    <input name="orderType" type="radio"  onclick="showAndHidden2();" value="1"/>跨站订阅
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group"  id="input1" style="display: block">
+                        <label class="col-sm-2 control-label">所属分站</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" readonly="readonly" th:value="${stationId}" id="s1"/>
+                        </div>
+                    </div>
+                    <div class="form-group"  id="input2" style="display: none">
+                        <div  style="float: right" class="col-sm-10">
+                            <select class="form-control1" name="stationId" id="sId">
+                                <option th:value="${station.id}" th:text="${station.id}" th:each="station : ${stations}">--</option>
+                            </select>
+                        </div>
+                        <div  style="float: right;margin-top:6px">
+                            <label>分站Id：</label>
+                        </div>
+                    </div>
+                    <div class="form-group" style="display: block">
+                        <label class="col-sm-2 control-label">分站区域地址</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" readonly="readonly" name="address1" id="address1"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="col-sm-2 control-label">具体地址</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="address" id="address" placeholder="地址"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate" class="col-sm-2 control-label">订单开始时间</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" name="startDate" id="startDate"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <div  style="float: right" class="col-sm-10">
+                            <select class="form-control1" name="zenkaId" id="zenkaId">
+                                <option th:text="无" th:value="-1"></option>
+                                <option th:value="${unuseZenka.id}" th:text="${unuseZenka.id}" th:each="unuseZenka : ${unuseZenkas}">--</option>
+                            </select>
+                        </div>
+                        <div  style="float: right;margin-top:6px">
+                            <label>赠卡Id：</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <div  style="float: right" class="col-sm-10">
+                            <select class="form-control1" name="voucherId" id="voucherId">
+                                <option th:text="无" th:value="-1"></option>
+                                <option th:value="${unuseVoucher.id}" th:text="${unuseVoucher.id}" th:each="unuseVoucher : ${unuseVouchers}">--</option>
+                            </select>
+                        </div>
+                        <div  style="float: right;margin-top:6px">
+                            <label>优惠券Id：</label>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+
+                        <div  style="float: right" class="col-sm-10">
+                            <select class="form-control1" name="printId" id="printId">
+                                <option th:text="无" th:value="-1"></option>
+                                <option th:value="${print.id}" th:text="${print.id}" th:each="print : ${prints}">--</option>
+                            </select>
+                        </div>
+                        <div  style="float: right;margin-top:6px">
+                            <label>印点Id：</label>
+                        </div>
+
+                    </div>
+                    <!--错误信息展示区-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <div th:if="${errorMsg!=null}" class="alert alert-danger" role="alert" th:text="${errorMsg}">
+                            </div>
+                        </div>
+                    </div>
+                    <!--按钮区-->
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <input type="submit" value="提交" class="btn btn-info"/>
+                            &nbsp;&nbsp;&nbsp;
+                            <input type="reset" value="重置" class="btn btn-info">
+                            &nbsp;&nbsp;&nbsp;
+                            <a href="/toAddOrders" th:href="@{/ordersList}" class="btn btn-info">Back</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div th:include="foot :: footer"></div>
+</div>
+<!-- Classie -->
+<script src="js/classie.js"></script>
+
+<script th:inline="javascript" type="text/javascript">
+    var areaNames=[[${areaNames}]];
+    var stationIds=[[${stationIds}]];
+    function showAndHidden1(){
+        var div1=document.getElementById("input1");
+        var div2=document.getElementById("input2");
+        var addr=document.getElementById("address1");
+        div1.style.display='block';
+        div2.style.display='none';
+        var s1=document.getElementById("s1");
+        var stationId=s1.value;
+        for(var i=0;i<stationIds.length;i++){
+            if(stationId==stationIds[i]){
+                addr.value=areaNames[i].toString();
+                break;
+            }
+        }
+    }
+    function showAndHidden2(){
+        var div1=document.getElementById("input1");
+        var div2=document.getElementById("input2");
+        div1.style.display='none';
+        div2.style.display='block';
+        var index=document.getElementById("sId").selectedIndex;//获取当前选择项的索引.
+        var stationId=document.getElementById("sId").options[index].text;//获取当前选择项的文本.
+        var addr=document.getElementById("address1");
+        for(var i=0;i<areaNames.length;i++){
+            if(stationId==stationIds[i]){
+                addr.value=areaNames[i];
+                break;
+            }
+        }
+    }
+</script>
+<script>
+    var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+        showLeftPush = document.getElementById( 'showLeftPush' ),
+        body = document.body;
+
+    showLeftPush.onclick = function() {
+        classie.toggle( this, 'active' );
+        classie.toggle( body, 'cbp-spmenu-push-toright' );
+        classie.toggle( menuLeft, 'cbp-spmenu-open' );
+        disableOther( 'showLeftPush' );
+    };
+
+    function disableOther( button ) {
+        if( button !== 'showLeftPush' ) {
+            classie.toggle( showLeftPush, 'disabled' );
+        }
+    }
+</script>
+<!--scrolling js-->
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<!--//scrolling js-->
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.js"> </script>
+</body>
+</html>

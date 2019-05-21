@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>监督管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <!-- font CSS -->
+    <!-- font-awesome icons -->
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <!-- js-->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/modernizr.custom.js"></script>
+    <!--webfonts-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!--//webfonts-->
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
+    <!-- Metis Menu -->
+    <script src="js/metisMenu.min.js"></script>
+    <script src="js/custom.js"></script>
+    <link href="css/custom.css" rel="stylesheet">
+    <!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+<div class="main-content">
+    <div th:include="leftNav :: leftnav"></div>
+    <div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+    <div id="page-wrapper">
+        <div class="main-page">
+            <div class="blank-page widget-shadow scroll" id="style-2 div1">
+                <div class="form-two widget-shadow">
+                    <div class="form-title">
+                        <h4>输入分站id进行查找 :</h4>
+                    </div>
+                    <div class="form-body" data-example-id="simple-form-inline">
+                        <form class="form-inline" th:action="@{/jianduOne}">
+                            <div class="form-group col-md-4">
+                                <label for="stationId">分站id：</label>
+                                <input type="text" class="form-control" name="stationId" id="stationId" readonly="readonly" th:value="${stationId}"/>
+                            </div>
+                            <div class="form-group">
+                                <div  style="float: left;margin-top:6px">
+                                    <label>意见类别：</label>
+                                </div>
+                                <div  style="float: left">
+                                    <select class="form-control" name="type">
+                                        <option value="0">投诉</option>
+                                        <option value="1">建议</option>
+                                        <option value="2">表扬</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div  style="float: left;margin-top:6px">
+                                    <label>状态：</label>
+                                </div>
+                                <div  style="float: left">
+                                    <select class="form-control" name="status">
+                                        <option value="0">未处理</option>
+                                        <option value="1">已处理</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="float: right">搜索</button>
+                        </form>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:include="foot :: footer"></div>
+</div>
+<!-- Classie -->
+<script src="js/classie.js"></script>
+<script>
+    var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+        showLeftPush = document.getElementById( 'showLeftPush' ),
+        body = document.body;
+
+    showLeftPush.onclick = function() {
+        classie.toggle( this, 'active' );
+        classie.toggle( body, 'cbp-spmenu-push-toright' );
+        classie.toggle( menuLeft, 'cbp-spmenu-open' );
+        disableOther( 'showLeftPush' );
+    };
+
+    function disableOther( button ) {
+        if( button !== 'showLeftPush' ) {
+            classie.toggle( showLeftPush, 'disabled' );
+        }
+    }
+</script>
+<!--scrolling js-->
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<!--//scrolling js-->
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.js"> </script>
+</body>
+</html>

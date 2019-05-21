@@ -1,0 +1,232 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>订户调查分析</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<!-- //font-awesome icons -->
+ <!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!-- chart -->
+<script src="js/Chart.js"></script>
+<!-- //chart --> 
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+<script src="js/wow.min.js"></script>
+	<script>
+		 new WOW().init();
+	</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+</head> 
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<div th:include="leaderleftNav :: leftnav"></div>
+		<div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page charts-page">
+				<h3 class="title1">订户调查分析</h3>
+				<div class="charts">
+					<div class="col-md-6 chrt-page-grids" style="width: 561px; height: 480px;">
+						<h4 class="title">订户年龄分布</h4>
+						<canvas id="line"></canvas>
+					</div>
+					<div class="col-md-6 chrt-page-grids chrt-right" style="width: 561px; height: 480px;">
+						<h4 class="title">订户语言分布</h4>
+						<div class="doughnut-grid">
+							<canvas id="doughnut"></canvas>
+						</div>
+					</div>
+					<div class="col-md-6 charts chrt-page-grids" style="width: 561px; height: 480px;">
+						<h4 class="title">订户职业分布</h4>
+						<div class="radar-grid">
+							<canvas id="radar"></canvas>
+						</div>
+					</div>
+					<div class="col-md-6 charts chrt-page-grids chrt-right" style="width: 561px; height: 480px;">
+						<h4 class="title">订户受教育程度分布</h4>
+						<div class="polar-area">
+							<canvas id="polarArea"></canvas>
+						</div>
+					</div>
+					<div class="col-md-6 charts chrt-page-grids" style="width: 561px; height: 480px;">
+						<h4 class="title">订户省份分布</h4>
+						<canvas id="bar"></canvas>
+					</div>
+					<div class="col-md-6 charts chrt-page-grids chrt-right" style="width: 561px; height: 480px;">
+						<h4 class="title">订户性别分布</h4>
+						<div class="pie-grid">
+							<canvas id="pie"></canvas>
+						</div>
+					</div>
+					<div class="clearfix"> </div>
+					<script th:inline="javascript">
+						var doughnutData = [
+							{
+								value: [[${lan_count[0]}]],
+								color:"#4F52BA",
+								label:[[${lan[0]}]]
+							},
+							{
+								value : [[${lan_count[1]}]],
+								color : "#F2B33F",
+								label:[[${lan[1]}]]
+							},
+							{
+								value : [[${lan_count[2]}]],
+								color : "#585858",
+								label:[[${lan[2]}]]
+							},
+							{
+								value : [[${lan_count[3]}]],
+								color : "#e94e02",
+								label:[[${lan[3]}]]
+							},
+							{
+								value : [[${lan_count[4]}]],
+								color : "#9358ac",
+								label:[[${lan[4]}]]
+							}
+
+						];
+						var lineChartData = {
+							labels : [[${age}]],
+							datasets : [
+
+								{
+									fillColor : "rgba(51, 51, 51, 0)",
+									strokeColor : "#F2B33F",
+									pointColor : "#F2B33F",
+									pointStrokeColor : "#fff",
+									data : [[${age_count}]]
+								},
+							]
+
+						};
+						var pieData = [
+							{
+								value: [[${sex_count[0]}]],
+								color:"#4F52BA",
+								label:[[${sex[0]}]]
+							},
+							{
+								value : [[${sex_count[1]}]],
+								color : "#e94e02",
+								label:[[${sex[1]}]]
+							}
+
+						];
+						var barChartData = {
+							labels : [[${pro}]],
+							datasets : [
+
+								{
+									fillColor : "rgba(79, 82, 186, 0.83)",
+									strokeColor : "#4F52BA",
+									highlightFill: "#4F52BA",
+									data : [[${pro_count}]]
+								},
+
+							]
+
+						};
+						var chartData = [
+							{
+								value : [[${deg_count[0]}]],
+								color: "rgba(239, 85, 58, 0.87)",
+								label:[[${deg[0]}]]
+							},
+							{
+								value : [[${deg_count[1]}]],
+								color: "rgba(242, 179, 63, 0.87)",
+								label:[[${deg[1]}]]
+							},
+							{
+								value : [[${deg_count[2]}]],
+								color: "rgba(88, 88, 88, 0.87)",
+								label:[[${deg[2]}]]
+							},
+							{
+								value : [[${deg_count[3]}]],
+								color: "rgba(147, 88, 172, 0.87)",
+								label:[[${deg[3]}]]
+							},
+							{
+								value : [[${deg_count[4]}]],
+								color: "rgba(79, 82, 186, 0.87)",
+								label:[[${deg[4]}]]
+							},
+						];
+						var radarChartData = {
+							labels : [[${occ}]],
+							datasets : [
+								{
+									fillColor : "rgba(239, 85, 58, 0.87)",
+									strokeColor : "#e94e02",
+									pointColor : "#e94e02",
+									pointStrokeColor : "#fff",
+									data : [[${occ_count}]]
+								},
+
+							]
+
+						};
+						new Chart(document.getElementById("doughnut").getContext("2d")).Doughnut(doughnutData);
+						new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
+						new Chart(document.getElementById("radar").getContext("2d")).Radar(radarChartData);
+						new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chartData);
+						new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
+						new Chart(document.getElementById("pie").getContext("2d")).Pie(pieData);
+					</script>
+				</div>
+			</div>
+		</div>
+		<!--footer-->
+		<div th:include="foot :: footer"></div>        <!--//footer-->
+	</div>
+	<!-- Classie -->
+		<script src="js/classie.js"></script>
+		<script>
+			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+				showLeftPush = document.getElementById( 'showLeftPush' ),
+				body = document.body;
+				
+			showLeftPush.onclick = function() {
+				classie.toggle( this, 'active' );
+				classie.toggle( body, 'cbp-spmenu-push-toright' );
+				classie.toggle( menuLeft, 'cbp-spmenu-open' );
+				disableOther( 'showLeftPush' );
+			};
+			
+			function disableOther( button ) {
+				if( button !== 'showLeftPush' ) {
+					classie.toggle( showLeftPush, 'disabled' );
+				}
+			}
+		</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+   <script src="js/bootstrap.js"> </script>
+</body>
+</html>

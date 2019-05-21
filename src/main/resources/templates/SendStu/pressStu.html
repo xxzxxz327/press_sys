@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>报刊投递</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <!-- font CSS -->
+    <!-- font-awesome icons -->
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <!-- js-->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/modernizr.custom.js"></script>
+    <!--webfonts-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!--//webfonts-->
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
+    <!-- Metis Menu -->
+    <script src="js/metisMenu.min.js"></script>
+    <script src="js/custom.js"></script>
+    <link href="css/custom.css" rel="stylesheet">
+    <!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+<div class="main-content">
+    <div th:include="caiwuleftNav :: leftnav"></div>
+    <div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+    <div id="page-wrapper">
+        <div class="main-page">
+            <div class="blank-page widget-shadow scroll" id="style-2 div1">
+                <h3>报刊投递情况查询</h3>
+                <div class="form-two widget-shadow">
+
+                    <div class="form-body" data-example-id="simple-form-inline">
+                        <form class="form-inline" th:action="@{/findpressstubyid}">
+                            <div class="form-group col-md-4">
+
+                                <input type="text" class="form-control" name="id" id="pressName" placeholder="报刊名">
+                                <script th:inline="javascript" type="text/javascript">
+                                    var sourceName=[[${listPressName}]];
+                                    $("#pressName").autocomplete({
+                                        source:sourceName,
+                                        messages: {
+                                            noResults: '',
+                                            results: function() {}
+                                        }
+
+                                    });
+
+                                </script>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="float: left">搜索</button>
+                            <div class="col-lg-2 control-label" style="float: left">
+                                <a href="/findallsendpress" th:href="@{/findallsendpress}" class="btn btn-primary">显示全部</a>
+                            </div>
+                        </form>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="panel-body widget-shadow with:80%">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>报刊代码</th>
+                            <th>报刊名</th>
+                            <th>订单号</th>
+                            <th>数量</th>
+                            <th>分站代码</th>
+                            <th>分站名</th>
+                            <th>投递情况</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr  th:each="order : ${orders}">
+                            <th scope="row" th:text="${order[6]}">null</th>
+                            <td th:if="${order[5]!=null}" th:text="${order[5].toString()}">null</td>
+                            <td th:if="${order[5]==null}" >-</td>
+                            <td th:if="${order[0]!=null}" th:text="${order[0].toString()}">null</td>
+                            <td th:if="${order[0]==null}" >-</td>
+                            <td th:if="${order[4]!=null}" th:text="${order[4].toString()}">null</td>
+                            <td th:if="${order[4]==null}" >-</td>
+                            <td th:if="${order[3]!=null}" th:text="${order[3].toString()}">null</td>
+                            <td th:if="${order[3]==null}" >-</td>
+                            <td th:if="${order[1]!=null}" th:text="${order[1].toString()}">null</td>
+                            <td th:if="${order[1]==null}" >-</td>
+                            <td th:if="${order[2]==0}" >投递中</td>
+                            <td th:if="${order[2]==1}" >已完成</td>
+                            <td th:if="${order[2]==2}" >未送达</td>
+                            <td th:if="${order[2]==3}" >已取消</td>
+                            <td th:if="${order[2]==null}" >-</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div th:include="orderPage :: pager" th:remove="tag"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:include="foot :: footer"></div>
+</div>
+<!-- Classie -->
+<script src="js/classie.js"></script>
+<script>
+    var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+        showLeftPush = document.getElementById( 'showLeftPush' ),
+        body = document.body;
+
+    showLeftPush.onclick = function() {
+        classie.toggle( this, 'active' );
+        classie.toggle( body, 'cbp-spmenu-push-toright' );
+        classie.toggle( menuLeft, 'cbp-spmenu-open' );
+        disableOther( 'showLeftPush' );
+    };
+
+    function disableOther( button ) {
+        if( button !== 'showLeftPush' ) {
+            classie.toggle( showLeftPush, 'disabled' );
+        }
+    }
+</script>
+<!--scrolling js-->
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<!--//scrolling js-->
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.js"> </script>
+</body>
+</html>

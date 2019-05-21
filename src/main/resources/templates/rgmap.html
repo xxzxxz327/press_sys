@@ -1,0 +1,91 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="关键词，关键字">
+    <meta name="Description" content="描述信息">
+    <title>货车路线规划－使用经纬度</title>
+    <script type="text/javascript" src='https://webapi.amap.com/maps?v=1.4.14&key=22d8763dc7000c0821851f464e41f03f&plugin=AMap.TruckDriving'></script>
+    <style>
+
+        body{
+            margin:0
+        }
+        .head{height:100px;background: #000000}
+        .center{width:90%;min-width:1200px;margin:0 auto;padding-top:10px;}
+        .search{width:1200px;float:right;line-height:40px;color:#fff}
+        .txt{width:120px;height:24px;}
+        .btn{width:60px;height:30px;border:none;outline:none;border-radius:4px;background:#14acd8;font-size:16px;}
+        .btn:hover{background:#68d1dd;animation:randomAnimation 0.3s linear infinite;cursor:pointer;}
+        #mapContent{height:97vh;}
+        @keyframes randomAnimation{
+            from{transform:scale(0.9);}
+            to{transform:rotate(0deg);}
+        }
+        #panel {
+            position: fixed;
+            background-color: white;
+            max-height: 90%;
+            overflow-y: auto;
+            top: 80px;
+            right: 10px;
+            width: 280px;
+        }
+        #panel .amap-lib-driving {
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+    </style>
+    <!--<link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />-->
+    <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+</head>
+<body>
+
+<div class="head">
+    <div class="center">
+        <div class="search">
+            <div style="float: left"><a href="/sysRoute" style="margin: 10px"><span class="btn">返回</span></a></div>
+            <span>出发地:<input class="txt" type="text"  th:value="${start}" id="start"  name="address"></span>
+            <span th:each="point:${rg}">途经点：<input type="text"  th:value="${point}" class="points"></span>
+            <span>目的地:<input class="txt" type="text"  th:value="${start}" id="end"  name="end"></span>
+            <input type="button" value="查看" class="btn" onclick="toSearch();">
+        </div>
+    </div>
+</div>
+
+<div id="mapContent"></div>
+<div id="panel"></div>
+
+<script type="text/javascript">
+    var map = new AMap.Map("mapContent", {});
+    var truckOptions = {
+        map: map,
+        policy:0,
+        size:1,
+        //city:'beijing',
+        panel:'panel'
+    };
+    
+    function toSearch() {
+    var start=document.getElementById("start").value;
+    var point=document.getElementsByClassName("points");
+        var driving = new AMap.TruckDriving(truckOptions,{});
+        var path = [];
+        path.push({keyword: start});
+        //path.push({keyword:'大连北站'});
+        for(var i=0;i<point.length;i++){
+            path.push({keyword: point[i].value});
+        }
+        driving.search(path, function (status, result) {
+            // result即是对应的货车导航信息，相关数据结构文档请参考 https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
+            if (status === 'complete') {
+                log.success('绘制货车路线完成')
+            } else {
+                log.error('获取货车规划数据失败：' + result)
+            }
+        });
+    }
+</script>
+</body>
+</html>

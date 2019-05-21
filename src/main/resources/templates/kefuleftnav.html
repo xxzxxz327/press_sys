@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="kefuleftnav">
+<body>
+<div th:fragment="leftnav" >
+<div class=" sidebar" role="navigation" >
+            <div class="navbar-collapse" >
+				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1" style="overflow-y:auto;padding-bottom:100px">
+					<ul class="nav" id="side-menu" >
+						<li>
+							<a href="index.html"><i class="fa fa-home nav_icon"></i>监督管理</a>
+							<ul class="nav nav-second-level collapse">
+								<li>
+									<a href="/toquerycon" th:href="@{/toquerycon}">客户管理</a>
+								</li>
+								<li>
+									<a href="/toqueryask" th:href="@{/toqueryask}">客户调查</a>
+								</li>
+								<li>
+									<a href="/toquerycomplain" th:href="@{/toquerycomplain}">投诉管理</a>
+								</li>
+								<li>
+									<a href="/toquerypraise" th:href="@{/toquerypraise}">表扬管理</a>
+								</li>
+								<li>
+									<a href="/toqueryadvice" th:href="@{/toqueryadvice}">建议管理</a>
+								</li>
+								
+							</ul>
+						</li>
+						
+						<li >
+							<a href="#"><i class="fa fa-book nav_icon"></i>辅助业务</a>
+							<ul class="nav nav-second-level collapse">
+								<li>
+									<a href="/unReadMessageList" th:href="@{/unReadMessageList}">收取通知</a>
+								</li>
+								<li>
+									<a href="/toSendMessage" th:href="@{/toSendMessage}">发送通知</a>
+								</li>
+								<li>
+									<a href="/readMessageList" th:href="@{/readMessageList}">已阅读通知</a>
+								</li>
+								<li>
+									<a href="/tochangePassword" th:href="@{/tochangePassword}">修改密码</a>
+								</li>
+								
+							</ul>
+							<!-- /nav-second-level -->
+						</li>
+						
+						<li>
+							<a href="#"><i class="fa fa-envelope nav_icon"></i>查询</a>
+							<ul class="nav nav-second-level collapse">
+								<li>
+									<a href="/orderLogSearch" th:href="@{/orderLogSearch}">操作日志查询</a>
+								</li>
+								<li>
+									<a href="/toOrdersOver" th:href="@{/toOrdersOver}">订单到期数查询</a>
+								</li>
+							</ul>
+							<!-- //nav-second-level -->
+						</li>
+						
+						
+					</ul>
+					<div class="clearfix"> </div>
+					<!-- //sidebar-collapse -->
+				</nav>
+			</div>
+		</div>
+</div>
+</body>
+</html>

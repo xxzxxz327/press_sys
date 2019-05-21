@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>职务信息编辑</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript">
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+</script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
+	rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css"
+	media="all">
+<script src="js/wow.min.js"></script>
+<script>
+	new WOW().init();
+</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div th:include="leftNav :: leftnav"></div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<div class=" form-grids row form-grids-right">
+					<div class="widget-shadow " data-example-id="basic-forms">
+						<div class="form-title">
+							<h4>编辑信息表单:</h4>
+						</div>
+
+						<div class="form-body">
+							<form class="form-horizontal" th:action="@{/staffedit1}"
+								method="post">
+
+								<div class="form-group">
+									<label for="inputId" class="col-sm-2 control-label">员工ID</label>
+									<div class="col-sm-9">
+										<input type="number" class="form-control" id="inputId"
+											th:value="${staff.getId()}" readonly="readonly" name="id">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="inputName" class="col-sm-2 control-label">员工姓名</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="inputName" th:if="${staff.getStaffName()!=null}"
+											th:value="${staff.getStaffName()}" name="staffName">
+										<input type="text" class="form-control" id="inputName" th:if="${staff.getStaffName()==null}"
+											 name="staffName">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="inputDutyId" class="col-sm-2 control-label">职务ID</label>
+									<div class="col-sm-9">
+										<select class="form-control1" name="dutyId" >
+			                             	<option th:value="${duty[0]}" th:text="${duty[1]}" th:each="duty : ${dutylist}"></option>
+			                          	</select>
+									</div>
+								</div>
+								
+								<!-- <div class="form-group">
+									<label for="inputDepartId" class="col-sm-2 control-label">部门ID</label>
+									<div class="col-sm-9">
+										<input type="number" class="form-control" id="inputDepartId" th:if="${staff.getDepartId()!=null}"
+											th:value="${staff.getDepartId()}" name="departId">
+											<input type="number" class="form-control" id="inputDepartId" th:if="${staff.getDepartId()==null}"
+											 name="departId">
+									</div>
+								</div> -->
+								
+								<div class="form-group">
+									<label for="inputPassword" class="col-sm-2 control-label">密码</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="inputPassword" th:if="${staff.getPassword()!=null}"
+											th:value="${staff.getPassword()}" name="password">
+										<input type="text" class="form-control" id="inputPassword" th:if="${staff.getPassword()==null}"
+											 name="password">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="inputPhone" class="col-sm-2 control-label">联系电话</label>
+									<div class="col-sm-9">
+										<input type="number" class="form-control" id="inputPhone" th:if="${staff.getPhone()!=null}"
+											th:value="${staff.getPhone()}" name="phone">
+											<input type="number" class="form-control" id="inputPhone" th:if="${staff.getPhone()==null}"
+											 name="phone">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="inputAuthority" class="col-sm-2 control-label">权限等级</label>
+									<div class="col-sm-9">
+										<input type="number" class="form-control" id="inputAuthority" th:if="${staff.getAuthority()!=null}"
+											th:value="${staff.getAuthority()}" name="authority">
+											<input type="number" class="form-control" id="inputAuthority" th:if="${staff.getAuthority()==null}"
+											 name="authority">
+									</div>
+								</div>
+
+
+								<div class="col-sm-offset-2">
+									<div>
+										<button type="submit" class="btn btn-primary">提交</button>
+										<a href="/findAllFXStaff" th:href="@{/findAllFXStaff}" class="btn btn-primary">返回</a>
+									</div>
+									<div th:text="${errormessage}"></div>
+								</div>
+
+
+
+							</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+
+		</div>
+		<!--footer-->
+		<div class="footer"></div>
+		<!--//footer-->
+	</div>
+	<!-- Classie -->
+	<script src="js/classie.js"></script>
+	<script>
+		var menuLeft = document.getElementById('cbp-spmenu-s1'), showLeftPush = document
+				.getElementById('showLeftPush'), body = document.body;
+
+		showLeftPush.onclick = function() {
+			classie.toggle(this, 'active');
+			classie.toggle(body, 'cbp-spmenu-push-toright');
+			classie.toggle(menuLeft, 'cbp-spmenu-open');
+			disableOther('showLeftPush');
+		};
+
+		function disableOther(button) {
+			if (button !== 'showLeftPush') {
+				classie.toggle(showLeftPush, 'disabled');
+			}
+		}
+	</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js">
+		
+	</script>
+</body>
+</html>

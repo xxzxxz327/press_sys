@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>监督编辑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <!-- font CSS -->
+    <!-- font-awesome icons -->
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <!-- js-->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/modernizr.custom.js"></script>
+    <!--webfonts-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!--//webfonts-->
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
+    <!-- Metis Menu -->
+    <script src="js/metisMenu.min.js"></script>
+    <script src="js/custom.js"></script>
+    <link href="css/custom.css" rel="stylesheet">
+    <!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+<div class="main-content">
+    <div th:include="leftNav :: leftnav"></div>
+    <div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+    <div id="page-wrapper">
+        <div class="main-page">
+            <div class="blank-page widget-shadow scroll" id="style-2 div1">
+                    <form class="form-horizontal" th:action="@{/jianduSave}" method="post">
+                    <input type="hidden" name="type" th:value="${type}">
+                        <input type="hidden" name="stationId" th:value="${stationId}">
+                    <div class="form-group">
+                        <label for="id" class="col-sm-2 control-label">意见id:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="id" id="id" th:value="${jiandu[0].toString()}" readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="consumerName" class="col-sm-2 control-label">客户姓名:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="ConsumerName" id="consumerName" th:value="${jiandu[1].toString()}" readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pressName" class="col-sm-2 control-label">报刊名称:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="pressName" id="pressName" th:value="${jiandu[2].toString()}" readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="content" class="col-sm-2 control-label">意见内容:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="content" id="content" th:value="${jiandu[3].toString()}" readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="status" class="col-sm-2 control-label">处理状态:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control1" name="status"  id="status">
+                                <option th:value="0" th:text="未处理">--</option>
+                                <option th:value="1" th:text="已处理">--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">意见类别:</label>
+                        <div class="col-sm-10">
+                            <input type="text" th:if="${jiandu_type eq 'complain'}" class="form-control" name="content" th:value="${jiandu[6].toString()}" readonly="readonly"/>
+                            <input type="text" th:if="${jiandu_type eq 'advice'}" class="form-control" name="content" th:value="建议" readonly="readonly"/>
+                            <input type="text" th:if="${jiandu_type eq 'praise'}" class="form-control" name="content" th:value="表扬" readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">部门分配:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control1" name="department" >
+                                <option th:value="${department.id}" th:text="${department.departName}" th:each="department : ${departments}">--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <input type="submit" value="提交" class="btn btn-info">
+                                &nbsp;&nbsp;&nbsp;
+                                <a th:href="@{/jianduControl}" class="btn btn-info">Back</a>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+    <div th:include="foot :: footer"></div>
+</div>
+<!-- Classie -->
+<script src="js/classie.js"></script>
+<script>
+    var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+        showLeftPush = document.getElementById( 'showLeftPush' ),
+        body = document.body;
+
+    showLeftPush.onclick = function() {
+        classie.toggle( this, 'active' );
+        classie.toggle( body, 'cbp-spmenu-push-toright' );
+        classie.toggle( menuLeft, 'cbp-spmenu-open' );
+        disableOther( 'showLeftPush' );
+    };
+
+    function disableOther( button ) {
+        if( button !== 'showLeftPush' ) {
+            classie.toggle( showLeftPush, 'disabled' );
+        }
+    }
+</script>
+<!--scrolling js-->
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<!--//scrolling js-->
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.js"> </script>
+</body>
+</html>

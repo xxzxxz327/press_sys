@@ -1,0 +1,77 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="关键词，关键字">
+    <meta name="Description" content="描述信息">
+    <title>查看路线</title>
+    <!--css的布局文件-->
+    <style>
+        body{margin:0}
+        .head{height:60px;background: #000000}
+        .center{width:90%;min-width:1200px;margin:0 auto;padding-top:10px;}
+        .search{width:960px;float:right;line-height:40px;color:#fff}
+        .txt{width:120px;height:24px;}
+        .btn{width:60px;height:30px;border:none;outline:none;border-radius:4px;background:#14acd8;font-size:16px;}
+        .btn:hover{background:#68d1dd;animation:randomAnimation 0.3s linear infinite;cursor:pointer;}
+        #mapContent{height:97vh;}
+        @keyframes randomAnimation{
+            from{transform:scale(0.9);}
+            to{transform:rotate(0deg);}
+        }
+        #panel {
+            position: fixed;
+            background-color: white;
+            max-height: 90%;
+            overflow-y: auto;
+            top: 50px;
+            right: 10px;
+            width: 280px;
+        }
+    </style>
+</head>
+<body>
+<div class="head">
+    <div class="center">
+        <div class="search">
+            <div style="float: left"><a href="/sysRoute" style="margin: 10px"><span class="btn">返回</span></a></div>
+            <span>出发地:<input type="text"  th:value="${start}" id="start"  name="address"></span>
+            <span>目的地:<input type="text"  th:value="${end}" id="end"  name="end"></span>
+            <input type="button" value="查看" class="btn" onclick="toSearch();">
+        </div>
+    </div>
+</div>
+<div id="mapContent"></div>
+<div id="panel"></div>
+<!--引入高德地图JavaScript API-->
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.4&key=22d8763dc7000c0821851f464e41f03f&plugin=AMap.Driving"></script>
+<script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+<script>
+    //初始化地图
+    var map = new AMap.Map('mapContent');
+    //地图中心点
+    map.setZoom(10);
+    //缩放级别
+    map.setCenter([116.39,39.9]);
+
+    //实现路线规划，加载高德地图路线规划
+    var driving = new AMap.Driving({
+        map: map,  //将路径规划添加到对应的地图上面去
+        panel: "panel"//路线规划的面板
+    });
+
+
+    //根据起点和终点规划路线
+    function toSearch(){
+        var start=document.getElementById("start").value;
+        var end=document.getElementById("end").value;
+        driving.search([
+            {keyword:start},
+            {keyword:end}
+        ]);
+    };
+
+</script>
+</body>
+
+</html>

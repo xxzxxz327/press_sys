@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="caiwuleftNav">
+<body>
+<div th:fragment="leftnav">
+    <div class=" sidebar" role="navigation">
+        <div class="navbar-collapse scroll">
+            <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="/toCaiwu" th:href="@{/toCaiwu}" class="active"><i class="fa fa-home nav_icon"></i>收订统计</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-cogs nav_icon"></i>投递统计 <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/SendStation" th:href="@{/SendStation}">分站情况</a>
+                            </li>
+                            <li>
+                                <a href="/SendPress" th:href="@{/SendPress}">报刊情况</a>
+                            </li>
+                        </ul>
+                        <!-- /nav-second-level -->
+                    </li>
+                    <li class="">
+                        <a href="#"><i class="fa fa-book nav_icon"></i>发票管理 <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/setinvoice" th:href="@{/setinvoice}">发票登记</a>
+                            </li>
+                            <li>
+                                <a href="/sendinvoice" th:href="@{/sendinvoice}">发票发放</a>
+                            </li>
+                            <li>
+                                <a href="/tobackinvoice"th:href="@{/tobackinvoice}">退回登记</a>
+                            </li>
+                            <li>
+                                <a href="/findinvoicebyid" th:href="@{/findinvoicebyid}">发票查询</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <a href="#"><i class="fa fa-book nav_icon"></i>结算查询 <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/BalanceofStation" th:href="@{/BalanceofStation}">分站结算</a>
+                            </li>
+                            <li>
+                                <a href="/BalanceofOffice" th:href="@{/BalanceofOffice}">报社结算</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/bigconsumer" th:href="@{/bigconsumer}" ><i class="fa fa-home nav_icon"></i>大客户查询</a>
+                    </li>
+                    <li>
+                        <a href="/totranscount" th:href="@{/totranscount}"><i class="fa fa-envelope nav_icon"></i>日常维护</a>
+
+                        </li>
+                    <li>
+                        <a href="#"><i class="fa fa-check-square-o nav_icon"></i>辅助业务<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/unReadMessageList" th:href="@{/unReadMessageList}">收取通知</a>
+                            </li>
+                            <li>
+                                <a href="/toSendMessage" th:href="@{/toSendMessage}">发送通知</a>
+                            </li>
+                            <li>
+                                <a href="/readMessageList" th:href="@{/readMessageList}">已阅读通知</a>
+                            </li>
+                            <li>
+                                <a href="/tochangePassword" th:href="@{/tochangePassword}">修改密码</a>
+                            </li>
+                        </ul>
+                        <!-- //nav-second-level -->
+                    </li>
+
+                </ul>
+                <!-- //sidebar-collapse -->
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>

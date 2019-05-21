@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>发送通知</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="css/summernote.css" rel='stylesheet' type='text/css'/>
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <!-- font CSS -->
+    <!-- font-awesome icons -->
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <!-- js-->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/modernizr.custom.js"></script>
+    <!--webfonts-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!--//webfonts-->
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
+    <!-- Metis Menu -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/metisMenu.min.js"></script>
+    <script src="js/custom.js"></script>
+    <link href="css/custom.css" rel="stylesheet">
+
+    <link href="css/fSelect.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript">
+        function changedivtext() {
+            var text1=document.getElementsByClassName("note-editable")[0].innerHTML.toString();
+            document.getElementById("inputContent").value=text1;
+        }
+
+    </script>
+
+    <!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+<div class="main-content">
+    <div th:if="${session.stationId>5}" th:include="leftNav :: leftnav"></div>
+    <div th:if="${session.stationId==1}" th:include="centerleftnav :: leftnav"></div>
+    <div th:if="${session.stationId==2}" th:include="leaderleftNav :: leftnav"></div>
+    <div th:if="${session.stationId==3}" th:include="kefuleftnav :: leftnav"></div>
+    <div th:if="${session.stationId==4}" th:include="fenfaleftnav :: leftnav"></div>
+    <div th:if="${session.stationId==5}" th:include="caiwuleftNav :: leftnav"></div>
+    <div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+    <div fragment="messageDetail">
+        <div id="page-wrapper">
+            <div class="main-page">
+                <div class="blank-page widget-shadow scroll" id="style-2 div1">
+                    <div class="panel-default widget-shadow">
+                        <div class="panel-heading">
+                            通知内容
+                        </div>
+                        <div class="panel-body">
+                            <form class="com-mail" th:action="@{/messageRead}" th:object="${message}" method="post">
+                                <input type="hidden" name="id" th:value="*{id}">
+                                <div class="form-group">
+                                    <label for="fromDepart" class="col-sm-2 control-label">发送部门:</label>
+                                    <div class="col-sm-10 panel panel-body"  style="border: 1px dotted #785;background: #f5f5f5;">
+                                        <input type="text" class="form-control1 control3" th:value="${fromName}" id="fromDepart" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">标题:</label>
+                                    <div class="col-sm-10 panel panel-body" style="border: 1px dotted #785;background: #f5f5f5;">
+                                        <input type="text" class="form-control1 control3" th:value="*{title}" id="title" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="content" class="col-sm-2 control-label">内容:</label>
+                                    <!--<div class="col-sm-10">
+                                        <textarea rows="6" class="form-control1 control2" th:text="${message.content}" id="content" readonly="readonly"></textarea>
+                                    </div>-->
+                                    <div class="col-sm-10 panel panel-body" style="border: 1px dotted #785;background: #f5f5f5;">
+                                        <!--<textarea rows="6" class="form-control1 control2" name="content" placeholder="Message :" id="content"></textarea>-->
+                                            <div class="note-editable panel-body" th:utext="${message.content}"></div>
+                                    </div>
+                                </div>
+                                <input type="submit" value="已阅读">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:include="foot :: footer"></div>
+</div>
+<!-- Classie -->
+<script src="js/classie.js"></script>
+<script>
+    var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+        showLeftPush = document.getElementById( 'showLeftPush' ),
+        body = document.body;
+    showLeftPush.onclick = function() {
+        classie.toggle( this, 'active' );
+        classie.toggle( body, 'cbp-spmenu-push-toright' );
+        classie.toggle( menuLeft, 'cbp-spmenu-open' );
+        disableOther( 'showLeftPush' );
+    };
+    function disableOther( button ) {
+        if( button !== 'showLeftPush' ) {
+            classie.toggle( showLeftPush, 'disabled' );
+        }
+    }
+</script>
+<script src="js/jquery.min.js"></script>
+<script> var jqmin = jQuery.noConflict(true); </script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/summernote.js"></script>
+<script src="js/summernote-zh-CN.js"></script>
+<script src="js/fSelect.js"></script>
+<script>
+    jqmin($(function(){
+        $('.summernote').summernote({
+            height: 200,
+            tabsize: 2,
+            lang: 'zh-CN'
+        });
+    }));
+</script>
+<!--scrolling js-->
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<!--//scrolling js-->
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.js"> </script>
+<link href="css/summernote.css" rel="stylesheet"/>
+<style>
+    .m{ width: 800px; margin-left: auto; margin-right: auto;margin-top: auto; }
+</style>
+</body>
+</html>

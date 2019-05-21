@@ -1,0 +1,224 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>部门设置</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript">
+	
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+</script>
+<script type="text/javascript" src="js/setAllCheckBox.js"></script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
+	rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css"
+	media="all">
+<script src="js/wow.min.js"></script>
+<script>
+	new WOW().init();
+</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+ <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <!--  <script src="https://code.jquery.com/jquery-1.9.1.js"></script>-->
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div th:include="centerleftnav :: leftnav"></div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<div class="blank-page widget-shadow scroll" id="style-2 div1">
+					<!--  
+				<div  style="width:100%;">
+						<div style="height:50px;width:100%;"> </div>	
+						<div style="background:#F1F1F1;width:100%;height:73px;"> 
+							<div style="float:left;margin-left:25px;margin-top:25px">部门名称:<input type="text" name="departName" placeholder="请输入部门名称" style="height:30px;width:250px;border-radius:5px"/></div>
+							<div style="float:left;margin-left:70px;margin-top:25px">部门id:<input type="text" name="departId" placeholder="请输入部门id" style="height:30px;width:250px;border-radius:5px"/></div>
+							<div style="float:left;margin-left:15px;margin-top:25px"><h3><a href="#"><span class="label label-primary">搜索</span></a></h3></div>
+						</div>
+			
+					</div>
+					-->
+					<div class="form-two widget-shadow">
+						<div class="form-title">
+							<h4>输入条件进行查询:</h4>
+						</div>
+						<div class="form-body" data-example-id="simple-form-inline">
+							<form class="form-inline" th:action="@{/dicDepart}">
+								<div class="form-group">
+									<label for="exampleInputName2">部门名称：</label> <input type="text"
+										class="form-control" id="departName" name="departName"
+										placeholder="请输入部门名称" >
+									<script th:inline="javascript" type="text/javascript">
+										 var sourceName=[[${listDepartName}]];
+										 $("#departName").autocomplete({
+											 source:sourceName,
+										 		messages: {
+										        noResults: '',
+										        results: function() {}
+										    }
+											 
+										 });
+								
+							</script>
+								</div>
+								<!--  <a href="/dicDepart"><span class="label label-primary">搜索</span></a> -->
+								<button type="submit" class="btn btn-primary">搜索</button>
+								
+							</form>
+						</div>
+					</div>
+				</div>
+				<div style="width: 100%; height: 35px;">
+					<div style="float: left; margin-top: 20px">
+						<h3>
+							<a th:href="@{/todepartadd(selectName=${selectName})}"><span class="label label-primary">增加部门</span></a>
+						</h3>
+					</div>
+
+					<div class="col-lg-2 control-label"
+						style="float: left; margin-top: 20px">
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#gridSystemModal">
+							<h4>批量添加</h4>
+						</button>
+						<div class="modal fade" id="gridSystemModal" tabindex="-1"
+							role="dialog" aria-labelledby="gridSystemModalLabel">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										<h4 class="modal-title" id="gridSystemModalLabel">选择文件上传</h4>
+									</div>
+									<div class="modal-body">
+										<form method="post" th:action="@{/uploaddepart}"
+											enctype="multipart/form-data" class="modal-grids">
+											<input type="file" name="file" class="btn btn-primary" /></br> </br> <input
+												type="submit" value="提交" class="btn btn-primary">
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">关闭</button>
+									</div>
+								</div>
+								<!-- /.modal-content -->
+							</div>
+							<!-- /.modal-dialog -->
+						</div>
+						<!-- /.modal -->
+					</div>
+
+					<div style="float: right; margin-top: 20px">
+						<h3>
+							<a th:href="@{/todicstation}"><span class="label label-primary">分站管理</span></a>
+							<button class="btn btn-primary" onclick="document.getElementById('fdm').submit()"><h4>删除选中项</h4></button>
+						</h3>
+					</div>
+				</div>
+
+
+				<div class="bs-example widget-shadow"
+					data-example-id="contextual-table">
+					<!--	<table class="table"> -->
+
+					<!--  <div class="panel-body widget-shadow with:80%"> -->
+					<form th:action="@{/deletemanydepart}" id="fdm">
+					<table class="table table-hover">
+						<thead>
+							<!--  <tr class="active"> -->
+							<tr>
+								<th><input type="checkbox" id="quanxuan" onclick="checkAll(this)"></th>
+								<th>部门ID</th>
+								<th>部门名称</th>
+								<th>负责人姓名</th>
+								<th>上级部门</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="depart :${objectlist}">
+								<th scope="row"><input type="checkbox"  name="dx" th:value="${depart[0].toString()}" onclick="setqx()">
+								</th>
+								<td th:text="${depart[0].toString()}">null</td>
+								<td th:if="${depart[1]!=null}" th:text="${depart[1].toString()}">0</td>
+								<td th:if="${depart[1]==null}" ></td>
+								<td th:if="${depart[2]!=null}" th:text="${depart[2].toString()}">0</td>
+								<td th:if="${depart[2]==null}" ></td>
+								<td th:if="${depart[3]!=null}" th:text="${depart[3].toString()}">0</td>
+								<td th:if="${depart[3]==null}" ></td>
+								<td><a th:href="@{/todepartedit(id=${depart[0].toString()},selectName=${selectName})}">编辑</a>|<a
+									th:href="@{/todepartdelete(id=${depart[0].toString()},selectName=${selectName})}">删除</a></td>
+							</tr>
+						</tbody>
+					</table>
+					</form>
+					<!--  <div th:text="${objectlist.getNumber()}">###</div> -->
+					<div th:if="${objectlist!=null}" th:include="listpage :: pager" th:remove="tag"></div>
+				</div>
+			</div>
+		</div>
+		<!--footer-->
+		<div class="footer"></div>
+		<!--//footer-->
+	</div>
+	<!-- Classie -->
+	<script src="js/classie.js"></script>
+	<script>
+		var menuLeft = document.getElementById('cbp-spmenu-s1'), showLeftPush = document
+				.getElementById('showLeftPush'), body = document.body;
+
+		showLeftPush.onclick = function() {
+			classie.toggle(this, 'active');
+			classie.toggle(body, 'cbp-spmenu-push-toright');
+			classie.toggle(menuLeft, 'cbp-spmenu-open');
+			disableOther('showLeftPush');
+		};
+
+		function disableOther(button) {
+			if (button !== 'showLeftPush') {
+				classie.toggle(showLeftPush, 'disabled');
+			}
+		}
+	</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js">
+		
+	</script>
+</body>
+</html>

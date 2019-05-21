@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>统计查询</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript">
+	
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+</script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
+	rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css"
+	media="all">
+<script src="js/wow.min.js"></script>
+<script>
+	new WOW().init();
+</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div th:include="leftNav :: leftnav"></div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+	            <div class="blank-page widget-shadow scroll" id="style-2 div1">
+	                <div class="form-two widget-shadow">
+	                    <div class="form-title">
+	                        <h4>输入日期进行查找 :</h4>
+	                    </div>
+	                    <div class="form-body" data-example-id="simple-form-inline">
+	                        <form class="form-inline" th:action="@{/findTongJi}">
+	                        	<input type="hidden" name="stationId" th:value="${session.stationId}">
+	                            <div class="form-group" style="float: left">
+	                                <label for="sTime">起始时间：</label>
+	                                <input type="date" class="form-control" name="startTime" id="sTime" placeholder="0000-00-00"> 
+	                            </div>
+	                            <div class="form-group" style="float: left">
+	                                <label for="eTime">终止时间：</label>
+	                                <input type="date" class="form-control" name="endTime" id="eTime" placeholder="0000-00-00"> 
+	                            </div>
+	                            <button type="submit" class="btn btn-primary" style="float: left">搜索</button>
+	                        </form>
+	                        <div class="clearfix"> </div>
+							<!--错误信息展示区-->
+							<div class="col-sm-10">
+								<div th:if="${errorMsg!=null}" class="alert alert-danger" role="alert" th:text="${errorMsg}">
+								</div>
+							</div>
+	                    </div>
+	                    <div class="clearfix"> </div>
+	                </div>
+	                &nbsp;&nbsp;&nbsp;&nbsp;
+	                <!-- <div class="panel-body widget-shadow">
+	                    <div class="form-group">
+	                        <div class="col-lg-2 control-label" style="float: right">
+	                            <a href="/tocompletionprint" th:href="@{/tocompletionprint}" class="btn btn-primary">打印完成情况</a>
+	                        </div>
+	                    </div>
+	                </div> -->
+	                &nbsp;&nbsp;&nbsp;&nbsp;
+	                <div class="panel-body widget-shadow with:80%">
+	                    <table class="table table-hover">
+	                        <thead>
+	                        <tr>
+	                            <th>总投递数</th>
+	                            <th>投递中</th>
+	                            <th>已完成</th>
+	                            <th>未送达</th>
+	                            <th>已取消</th>
+	                            <th>总收款数额</th>
+	                            <th>总退款金额</th>
+	                        </tr>
+	                        </thead>
+	                        <tbody>
+		                      <tr>
+	                            <th scope="row" th:text="${dlist.get(0)[0].toString()}">1</th>
+	                            <td th:text="${dlist.get(0)[1].toString()}">null</td>
+	                            <td th:text="${dlist.get(0)[2].toString()}">Otto</td>
+	                            <td th:text="${dlist.get(0)[3].toString()}">---</td>
+	                            <td th:text="${dlist.get(0)[4].toString()}">---</td>
+	                            <td th:if="${olist.get(0)[0]!=null}" th:text="${olist.get(0)[0].toString()}">---</td>
+	                            <td th:if="${olist.get(0)[0]==null}" >0</td>
+	                            <td th:if="${olist.get(0)[1]!=null}" th:text="${olist.get(0)[1].toString()}">---</td>
+	                            <td th:if="${olist.get(0)[1]==null}" >0</td>
+	                           </tr>
+	                        </tbody>
+	                    </table>
+	                   <div ></div>
+	                </div>
+	            </div>
+	        </div>
+        </div>
+		<!--footer-->
+		<div class="footer"></div>
+		<!--//footer-->
+	</div>
+	<!-- Classie -->
+	<script src="js/classie.js"></script>
+	<script>
+		var menuLeft = document.getElementById('cbp-spmenu-s1'), showLeftPush = document
+				.getElementById('showLeftPush'), body = document.body;
+
+		showLeftPush.onclick = function() {
+			classie.toggle(this, 'active');
+			classie.toggle(body, 'cbp-spmenu-push-toright');
+			classie.toggle(menuLeft, 'cbp-spmenu-open');
+			disableOther('showLeftPush');
+		};
+
+		function disableOther(button) {
+			if (button !== 'showLeftPush') {
+				classie.toggle(showLeftPush, 'disabled');
+			}
+		}
+	</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js">
+		
+	</script>
+</body>
+</html>

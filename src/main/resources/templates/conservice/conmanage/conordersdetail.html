@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>客户订阅详情</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript">
+	
+	
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+
+</script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
+	rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css"
+	media="all">
+<script src="js/wow.min.js"></script>
+<script>
+	new WOW().init();
+</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div th:include="kefuleftnav :: leftnav"></div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<div class=" form-grids row form-grids-right">
+					<div class="widget-shadow " data-example-id="basic-forms">
+						<div class="form-title">
+							<h4>详细信息表单:</h4>
+						</div>
+
+						<div class="form-body">
+							<form class="form-horizontal">
+
+								<div class="form-group">
+									<label for="inputId" class="col-sm-2 control-label">订单ID</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="inputId"
+											th:value="${orders.getId()}" readonly="readonly" name="Id">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="ConsumerId" class="col-sm-2 control-label">订户ID</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="ConsumerId"
+											th:if="${orders.getConsumerId()!=null}"
+											th:value="${orders.getConsumerId()}" readonly="readonly"
+											name="ConsumerId"> <input type="text"
+											class="form-control" id="ConsumerId"
+											th:if="${orders.getConsumerId()==null}" th:value=""
+											readonly="readonly" name="ConsumerId">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="PressId" class="col-sm-2 control-label">报刊ID</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="PressId"
+											th:if="${orders.getPressId()!=null}"
+											th:value="${orders.getPressId()}" readonly="readonly"
+											name="PressId">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="Copies" class="col-sm-2 control-label">数量</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="Copies"
+											th:if="${orders.getCopies()!=null}"
+											th:value="${orders.getCopies()}" readonly="readonly"
+											name="Copies">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="Duration" class="col-sm-2 control-label">时长</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="Duration"
+											th:if="${orders.getDuration()!=null}"
+											th:value="${orders.getDuration()}" readonly="readonly"
+											name="Duration"> <input type="text"
+											class="form-control" id="Duration"
+											th:if="${orders.getDuration()==null}"
+											th:value="${orders.getNullString()}" readonly="readonly"
+											name="Duration">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="PayType" class="col-sm-2 control-label">支付类型ID</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="PayType"
+											th:if="${orders.getPayType()!=null}"
+											th:value="${orders.getPayType()}" readonly="readonly"
+											name="PayType"> <input type="text"
+											class="form-control" id="PayType"
+											th:if="${orders.getPayType()==null}"
+											th:value="${orders.getNullString()}" readonly="readonly"
+											name="PayType">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="StationId" class="col-sm-2 control-label">分站ID</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="inputName"
+											th:if="${orders.getStationId()!=null}"
+											th:value="${orders.getStationId()}" readonly="readonly"
+											name="StationId"> <input type="text"
+											class="form-control" id="inputName"
+											th:if="${orders.getStationId()==null}"
+											th:value="${orders.getNullString()}" readonly="readonly"
+											name="StationId">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="ZenkaId" class="col-sm-2 control-label">赠卡ID</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="ZenkaId"
+											th:if="${orders.getZenkaId()!=null}"
+											th:value="${orders.getZenkaId()}" readonly="readonly"
+											name="ZenkaId"> <input type="text"
+											class="form-control" id="ZenkaId"
+											th:if="${orders.getZenkaId()==null}"
+											th:value="${orders.getNullString()}" readonly="readonly"
+											name="ZenkaId">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="Address" class="col-sm-2 control-label">地址</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="Address"
+											th:if="${orders.getAddress()!=null}"
+											th:value="${orders.getAddress()}" readonly="readonly"
+											name="Address"> <input type="text"
+											class="form-control" id="Address"
+											th:if="${orders.getAddress()==null}"
+											th:value="${orders.getNullString()}" readonly="readonly"
+											name="Address">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="StartDateString" class="col-sm-2 control-label">开始时间</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="StartDateString"
+											th:value="${orders.getStartDateString()}" readonly="readonly"
+											name="StartDateString">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="EndDateString" class="col-sm-2 control-label">结束时间</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="EndDateString"
+											th:value="${orders.getEndDateString()}" readonly="readonly"
+											name="EndDateString">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="Status" class="col-sm-2 control-label">状态</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="Status"
+											th:if="${orders.getStatus()!=null}"
+											th:value="${orders.getStatus()}" readonly="readonly"
+											name="Status"> <input type="text"
+											class="form-control" id="Status"
+											th:if="${orders.getStatus()==null}"
+											th:value="${orders.getNullString()}" readonly="readonly"
+											name="Status">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="Price" class="col-sm-2 control-label">支付金额</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="Price"
+											th:if="${orders.getPrice()!=null}"
+											th:value="${orders.getPrice()}" readonly="readonly"
+											name="Price"> <input type="text" class="form-control"
+											id="Price" th:if="${orders.getPrice()==null}"
+											th:value="${orders.getNullString()}" readonly="readonly"
+											name="Price">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="PrintId" class="col-sm-2 control-label">印点ID</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="PrintId"
+											th:if="${orders.getPrintId()!=null}"
+											th:value="${orders.getPrintId()}" readonly="readonly"
+											name="PrintId">
+										<input type="text" class="form-control" id="PrintId"
+											th:if="${orders.getPrintId()==null}"
+											th:value="${orders.getNullString()}" readonly="readonly"
+											name="PrintId">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="XiaTimeString" class="col-sm-2 control-label">下单时间</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="XiaTimeString"
+											th:value="${orders.getXiaTimeString()}" readonly="readonly"
+											name="XiaTimeString">
+									</div>
+								</div>
+
+
+							</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+
+		</div>
+		<!--footer-->
+		<div class="footer"></div>
+		<!--//footer-->
+	</div>
+	<!-- Classie -->
+	<script src="js/classie.js"></script>
+	<script>
+		var menuLeft = document.getElementById('cbp-spmenu-s1'), showLeftPush = document
+				.getElementById('showLeftPush'), body = document.body;
+
+		showLeftPush.onclick = function() {
+			classie.toggle(this, 'active');
+			classie.toggle(body, 'cbp-spmenu-push-toright');
+			classie.toggle(menuLeft, 'cbp-spmenu-open');
+			disableOther('showLeftPush');
+		};
+
+		function disableOther(button) {
+			if (button !== 'showLeftPush') {
+				classie.toggle(showLeftPush, 'disabled');
+			}
+		}
+	</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js">
+		
+	</script>
+</body>
+</html>

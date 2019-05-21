@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>路线组合设置</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript">
+
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
+
+</script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
+	rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css"
+	media="all">
+<script src="js/wow.min.js"></script>
+<script>
+	new WOW().init();
+</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div th:include="fenfaleftnav :: leftnav"></div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+					<div class="form-two widget-shadow">
+						<div class="form-title">
+							<h4>输入条件进行查询:</h4>
+						</div>
+						<div class="form-body" data-example-id="simple-form-inline">
+							<form class="form-inline" th:action="@{/routeGroupOne}">
+								<div class="form-group">
+									<label for="id">组合ID：</label> <input type="text"
+										class="form-control" id="id" name="id"
+										placeholder="请输入组合ID">
+								</div>
+
+								<!--  <a href="/dicDepart"><span class="label label-primary">搜索</span></a> -->
+								<button type="submit" class="btn btn-primary">搜索</button>
+
+							</form>
+						</div>
+					</div>
+				<div style="width: 100%; height: 35px;">
+					<div style="float: left; margin-top: 20px">
+						<h3>
+							<a href="/torouteGroupadd"><span class="label label-primary">添加组合</span></a>
+						</h3>
+					</div>
+				</div>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<div class="panel-body widget-shadow with:80%">
+					<table class="table table-hover">
+						<thead>
+							<!--  <tr class="active"> -->
+							<tr>
+								<th>组合ID</th>
+								<th>开始ID</th>
+								<th>地区ID</th>
+								<th>负责人ID</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+						<tr  th:each="routeGroup : ${routeGroups}">
+							<th scope="row" th:text="${routeGroup.id}">1</th>
+							<td th:text="${routeGroup.startId}">null</td>
+							<td th:text="${routeGroup.areaId}">null</td>
+							<td th:text="${routeGroup.principalId}">Otto</td>
+							<td><a th:href="@{/torouteGroupedit(id=${routeGroup.id})}">编辑</a><a>|</a>
+								<a th:href="@{/routegroupdelete(id=${routeGroup.id})}"  onclick="return confirm('确认是否删除此信息？')"  >删除</a>
+								<a>|</a><a th:href="@{/torgmap(id=${routeGroup.id})}">查看</a>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<!--  <div th:text="${objectlist.getNumber()}">###</div> -->
+						<!--<div th:if="${objectlist!=null}" th:include="listpage :: pager" th:remove="tag"></div>-->
+			</div>
+			</div>
+		</div>
+		<!--footer-->
+		<div class="footer"></div>
+		<!--//footer-->
+	</div>
+	<!-- Classie -->
+	<script src="js/classie.js"></script>
+	<script>
+		var menuLeft = document.getElementById('cbp-spmenu-s1'), showLeftPush = document
+				.getElementById('showLeftPush'), body = document.body;
+
+		showLeftPush.onclick = function() {
+			classie.toggle(this, 'active');
+			classie.toggle(body, 'cbp-spmenu-push-toright');
+			classie.toggle(menuLeft, 'cbp-spmenu-open');
+			disableOther('showLeftPush');
+		};
+
+		function disableOther(button) {
+			if (button !== 'showLeftPush') {
+				classie.toggle(showLeftPush, 'disabled');
+			}
+		}
+	</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js">
+
+	</script>
+</body>
+</html>

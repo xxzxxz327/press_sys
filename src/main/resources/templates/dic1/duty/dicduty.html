@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>职务设置</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript">
+	
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+</script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
+	rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css"
+	media="all">
+<script src="js/wow.min.js"></script>
+<script>
+	new WOW().init();
+</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+
+		<div th:if="${session.stationId>5}" th:include="leftNav :: leftnav"></div>
+		<div th:if="${session.stationId==1}" th:include="centerleftnav :: leftnav"></div>
+		<div th:if="${session.stationId==2}" th:include="leaderleftNav :: leftnav"></div>
+		<div th:if="${session.stationId==3}" th:include="kefuleftnav :: leftnav"></div>
+		<div th:if="${session.stationId==4}" th:include="fenfaleftnav :: leftnav"></div>
+		<div th:if="${session.stationId==5}" th:include="caiwuleftNav :: leftnav"></div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<div class="blank-page widget-shadow scroll" id="style-2 div1">
+					<div class="form-two widget-shadow">
+						<div class="form-title">
+							<h4>输入条件进行查询:</h4>
+						</div>
+						<div class="form-body" data-example-id="simple-form-inline">
+							<form class="form-inline" th:action="@{/dicDuty1}">
+								
+								<div class="form-group">
+									<label for="dutyName">职务名称：</label>  
+									<input type="text"
+										class="form-control" id="dutyName" name="dutyName"
+										placeholder="请输入职务名称" >
+										<script th:inline="javascript" type="text/javascript">
+										 var sourceName=[[${dutyNamelist}]];
+										 $("#dutyName").autocomplete({
+											 source:sourceName,
+										 		messages: {
+										        noResults: '',
+										        results: function() {}
+										    }
+											 
+										 });
+								
+									</script> 
+								</div>
+								<div class="form-group">
+									<label for="dutyId">职务ID：</label> <input
+										type="number" class="form-control" name="dutyId"
+										placeholder="请输入职务ID">
+								</div>
+								<!--  <a href="/dicDepart"><span class="label label-primary">搜索</span></a> -->
+								<button type="submit" class="btn btn-primary">搜索</button>
+								<!--  <a href="/findall"><span class="label label-primary">搜索全部</span></a> -->
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body widget-shadow">
+	                <div class="form-group">
+						<div class="col-lg-2 control-label" style="float: left">
+							<a href="/todutyadd"th:href="@{/todutyadd1}" class="btn btn-primary">增加职务</a>
+						</div>
+					
+
+
+					</div>
+				</div>
+
+
+				<div class="panel-body widget-shadow with:80%">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>职务ID</th>
+								<th>职务名称</th>
+								<th>绩效核算ID</th>
+								<th>所属部门</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="duty :${objectlist}">
+								<td th:text="${duty[0].toString()}">null</td>
+								<td th:text="${duty[1].toString()}">null</td>
+								<td th:text="${duty[2].toString()}">null</td>
+								<td th:if="${duty[3]!=null}" th:text="${duty[3].toString()}">null</td>
+								<td th:if="${duty[3]==null}"></td>
+								<td><a th:href="@{/todutyedit1(id=${duty[0].toString()})}">编辑</a>|<a
+									th:href="@{/todutydelete1(id=${duty[0].toString()})}">删除</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<!--  <div th:text="${objectlist.getNumber()}">###</div> -->
+					<div th:if="${objectlist!=null}" th:include="listpage :: pager" th:remove="tag"></div>
+				</div>
+			</div>
+		</div>
+		<!--footer-->
+		<div class="footer"></div>
+		<!--//footer-->
+	</div>
+	<!-- Classie -->
+	<script src="js/classie.js"></script>
+	<script>
+		var menuLeft = document.getElementById('cbp-spmenu-s1'), showLeftPush = document
+				.getElementById('showLeftPush'), body = document.body;
+
+		showLeftPush.onclick = function() {
+			classie.toggle(this, 'active');
+			classie.toggle(body, 'cbp-spmenu-push-toright');
+			classie.toggle(menuLeft, 'cbp-spmenu-open');
+			disableOther('showLeftPush');
+		};
+
+		function disableOther(button) {
+			if (button !== 'showLeftPush') {
+				classie.toggle(showLeftPush, 'disabled');
+			}
+		}
+	</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js">
+		
+	</script>
+</body>
+</html>

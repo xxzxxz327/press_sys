@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>延期</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <!-- font CSS -->
+    <!-- font-awesome icons -->
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <!-- js-->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/modernizr.custom.js"></script>
+    <!--webfonts-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!--//webfonts-->
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
+    <!-- Metis Menu -->
+    <script src="js/metisMenu.min.js"></script>
+    <script src="js/custom.js"></script>
+    <link href="css/custom.css" rel="stylesheet">
+    <!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+<div class="main-content">
+    <div th:include="leftNav :: leftnav"></div>
+    <div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+    <div id="page-wrapper">
+        <div class="main-page">
+            <div class="blank-page widget-shadow scroll" id="style-2 div1">
+                <form class="form-horizontal" th:action="@{/postponeOrderOne}" th:object="${orders}" th:method="post">
+                    <!--隐藏订单id-->
+                    <div class="form-group">
+                        <label for="consumerId" class="col-sm-2 control-label">用户id</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly="readonly" name="consumerId" id="consumerId" th:value="*{consumerId}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pressId" class="col-sm-2 control-label">报刊Id</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly="readonly" name="pressId" id="pressId" th:value="*{pressId}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id" class="col-sm-2 control-label">订单id</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly="readonly" name="id" id="id" th:value="*{id}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="startDate" class="col-sm-2 control-label">订单开始日期</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly="readonly" name="startDate" id="startDate" th:value="${#dates.format(orders.startDate, 'yyyy-MM-dd')}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate" class="col-sm-2 control-label">订单结束日期</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly="readonly" name="endDate" id="endDate" th:value="${#dates.format(orders.endDate, 'yyyy-MM-dd')}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="postponeStart" class="col-sm-2 control-label">订单延期开始日期</label>
+                        <div class="col-sm-10">
+                            <input type="date" name="postponeStart" id="postponeStart">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="postponeEnd" class="col-sm-2 control-label">订单延期结束日期</label>
+                        <div class="col-sm-10">
+                            <input type="date" name="postponeEnd" id="postponeEnd">
+                        </div>
+                    </div>
+                    <!--错误信息展示区-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <div th:if="${errorMsg!=null}" class="alert alert-danger" role="alert" th:text="${errorMsg}">
+                            </div>
+                        </div>
+                    </div>
+                    <!--按钮区-->
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <input type="submit" value="提交" class="btn btn-info">
+                            &nbsp;&nbsp;&nbsp;
+                            <a th:href="@{/orderPostponePart?consumerName=}+${consumerName}" class="btn btn-info">Back</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div th:include="foot :: footer"></div>
+</div>
+<!-- Classie -->
+<script src="js/classie.js"></script>
+<script>
+    var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+        showLeftPush = document.getElementById( 'showLeftPush' ),
+        body = document.body;
+
+    showLeftPush.onclick = function() {
+        classie.toggle( this, 'active' );
+        classie.toggle( body, 'cbp-spmenu-push-toright' );
+        classie.toggle( menuLeft, 'cbp-spmenu-open' );
+        disableOther( 'showLeftPush' );
+    };
+
+    function disableOther( button ) {
+        if( button !== 'showLeftPush' ) {
+            classie.toggle( showLeftPush, 'disabled' );
+        }
+    }
+</script>
+<!--scrolling js-->
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<!--//scrolling js-->
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.js"> </script>
+</body>
+</html>

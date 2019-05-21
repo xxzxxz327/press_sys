@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<title>编辑投递段</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript">
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+</script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
+	rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css"
+	media="all">
+<script src="js/wow.min.js"></script>
+<script>
+	new WOW().init();
+</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div th:include="leftNav :: leftnav"></div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<div class=" form-grids row form-grids-right">
+					<div class="widget-shadow " data-example-id="basic-forms">
+						<div class="form-title">
+							<h4>编辑信息表单:</h4>
+						</div>
+						<div class="form-body">
+							<form class="form-horizontal" th:action="@{/deliverpartedit}"
+								method="post">
+								<input type="hidden" name="sId" th:value="${sId}">
+								<div class="form-group">
+									<label for="inputId" class="col-sm-2 control-label">投递段ID</label>
+									<div class="col-sm-9">
+										<input type="number" class="form-control" id="inputId"
+											th:value="${deliverpart.getId()}" readonly="readonly" name="id">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputAddress" class="col-sm-2 control-label">投递段地址</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="inputAddress"
+											th:value="${deliverpart.getAddress()}" name="address">
+									</div>
+								</div>
+								<div class="form-group">
+									<label  class="col-sm-2 control-label">地区</label>
+			                        <div class="col-sm-9">
+			                    		<select class="form-control1" name="areaId" >
+			                             	<option th:value="${area.id}" th:text="${area.areaName}" th:each="area : ${alist}">--</option>
+			                          	</select>
+			                        </div>
+								</div>
+								<div class="form-group">
+									<label  class="col-sm-2 control-label">负责人</label>
+			                    	<div class="col-sm-9">
+			                    		<select class="form-control1" name="principalId" >
+			                             	<option th:if="${staff[1]=='投递员'&&staff[2]==sId}" th:value="${staff[0]}" th:text="${staff[3]}" th:each="staff : ${slist}">--</option>
+			                          	</select>
+			                         </div>
+								</div>
+								<!--错误信息展示区-->
+				                    <div class="form-group">
+				                        <label class="col-sm-2 control-label"></label>
+				                        <div class="col-sm-10">
+				                            <div th:if="${errorMsg!=null}" class="alert alert-danger" role="alert" th:text="${errorMsg}">
+				                            </div>
+				                        </div>
+				                    </div>
+				                    <!--按钮区-->
+				                    <div class="form-group">
+				                        <div class="col-sm-offset-2 col-sm-10">
+				                            <input type="submit" value="提交" class="btn btn-info">
+				                            &nbsp;&nbsp;&nbsp;
+				                            <a th:href="@{/findAllDeliverpart}" class="btn btn-info">返回</a>
+				                        </div>
+				                    </div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--footer-->
+		<div class="footer"></div>
+		<!--//footer-->
+	</div>
+	<!-- Classie -->
+	<script src="js/classie.js"></script>
+	<script>
+		var menuLeft = document.getElementById('cbp-spmenu-s1'), showLeftPush = document
+				.getElementById('showLeftPush'), body = document.body;
+
+		showLeftPush.onclick = function() {
+			classie.toggle(this, 'active');
+			classie.toggle(body, 'cbp-spmenu-push-toright');
+			classie.toggle(menuLeft, 'cbp-spmenu-open');
+			disableOther('showLeftPush');
+		};
+
+		function disableOther(button) {
+			if (button !== 'showLeftPush') {
+				classie.toggle(showLeftPush, 'disabled');
+			}
+		}
+	</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js">
+		
+	</script>
+</body>
+</html>

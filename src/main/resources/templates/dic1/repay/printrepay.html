@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>催款单打印</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript">
+	
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+</script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
+	rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css"
+	media="all">
+<script src="js/wow.min.js"></script>
+<script>
+	new WOW().init();
+</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+<script language="javascript">
+function printdiv(printpage)
+{
+var headstr = "<html><head><title></title></head><body>";
+var footstr = "</body>";
+var newstr = document.all.item(printpage).innerHTML;
+var oldstr = document.body.innerHTML;
+document.body.innerHTML = headstr+newstr+footstr;
+window.print(); 
+location.href="/findAllrepay";
+return false;
+}
+</script>
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div th:include="leftNav :: leftnav"></div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+	            <div class="blank-page widget-shadow scroll" id="style-2 div1">
+	                <div class="form-two widget-shadow">
+	                    <div class="form-title">
+	                        <input name="b_print" type="button" class="btn btn-primary"   onClick="printdiv('div1');" value="打印此催款单 " >
+	                    </div>
+	                    <div class="clearfix"> </div>
+	                </div>
+	                &nbsp;&nbsp;&nbsp;&nbsp;
+	                &nbsp;&nbsp;&nbsp;&nbsp;
+	                 <!-- 打印内容  -->
+	                <div class="panel-body widget-shadow with:80%" id="div1">
+	                	<div class="form-two widget-shadow">
+		                    <div class="form-title">
+		                        <h1><font size="5">催款单</font> </h1>
+		                    </div>
+	                    <div class="clearfix"> </div>
+	               		</div>
+	                    <table class="table table-hover" th:each="repay : ${objectlist}">
+	                        <tr>
+	                            <th>订单id</th>
+	                            <td th:text="${repay[0].toString()}"></td>
+	                        </tr>
+	                        <tr>
+	                            <th>金额</th>
+	                            <td th:if="${repay[1]!=0}" th:text="${repay[1].toString()}"></td>
+	                            <td th:if="${repay[1]==0}">--</td>
+	                        </tr>
+	                        <tr>
+	                            <th>订户姓名</th>
+	                            <td th:if="${repay[2]!=null}" th:text="${repay[2].toString()}"></td>
+	                            <td th:if="${repay[2]==null}">--</td>
+	                        </tr>
+	                        <tr>
+	                            <th>订户电话</th>
+	                            <td th:if="${repay[3]!=0}" th:text="${repay[3].toString()}"></td>
+	                            <td th:if="${repay[3]==0}">--</td>
+	                        </tr>
+	                        <tr>
+	                            <th>订户地址</th>
+	                            <td th:if="${repay[4]!=null}" th:text="${repay[4].toString()}"></td>
+	                            <td th:if="${repay[4]==null}">--</td>
+	                        </tr>
+	                        <tr>
+	                            <th>订阅报刊</th>
+	                            <td th:if="${repay[5]!=null}" th:text="${repay[5].toString()}"></td>
+	                            <td th:if="${repay[5]==null}">--</td>
+	                        </tr>
+	                        <tr>
+	                            <th>订阅份数</th>
+	                            <td th:if="${repay[6]!=null}" th:text="${repay[6].toString()}"></td>
+	                            <td th:if="${repay[6]==null}">--</td>
+	                        </tr>
+	                        <tr>
+	                            <th>下单时间</th>
+	                            <td th:if="${repay[7]!=null}" th:text="${repay[7].toString()}"></td>
+	                            <td th:if="${repay[7]==null}">--</td>
+	                        </tr>
+	                        <tr>
+	                            <th>开始时间</th>
+	                            <td th:if="${repay[8]!=null}" th:text="${repay[8].toString()}"></td>
+	                            <td th:if="${repay[8]==null}">--</td>
+	                        </tr>
+	                        <tr>
+	                            <th>结束时间</th>
+	                            <td th:if="${repay[9]!=null}" th:text="${repay[8].toString()}"></td>
+	                            <td th:if="${repay[9]==null}">--</td>
+	                        </tr>
+	                    </table>
+	                
+	                <br/>
+	                <br/>
+	                <br/>
+	                <br/>
+	                <br/>
+	                <br/>
+	                <div><p>盖章处:_______________</p></div>
+	                </div>
+	            </div>
+	        </div>
+        </div>>
+		<!--footer-->
+		<div class="footer"></div>
+		<!--//footer-->
+	</div>
+	<!-- Classie -->
+	<script src="js/classie.js"></script>
+	<script>
+		var menuLeft = document.getElementById('cbp-spmenu-s1'), showLeftPush = document
+				.getElementById('showLeftPush'), body = document.body;
+
+		showLeftPush.onclick = function() {
+			classie.toggle(this, 'active');
+			classie.toggle(body, 'cbp-spmenu-push-toright');
+			classie.toggle(menuLeft, 'cbp-spmenu-open');
+			disableOther('showLeftPush');
+		};
+
+		function disableOther(button) {
+			if (button !== 'showLeftPush') {
+				classie.toggle(showLeftPush, 'disabled');
+			}
+		}
+	</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js">
+	
+	</script>
+	
+	<!-- <script language="javascript">
+	function printme(){
+	 document.body.innerHTML=document.getElementById('div1').innerHTML;
+	 window.print();
+	}
+	</script> -->
+</body>
+</html>

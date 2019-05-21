@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>发票管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <!-- font CSS -->
+    <!-- font-awesome icons -->
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <!-- js-->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/modernizr.custom.js"></script>
+    <!--webfonts-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!--//webfonts-->
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
+    <!-- Metis Menu -->
+    <script src="js/metisMenu.min.js"></script>
+    <script src="js/custom.js"></script>
+    <link href="css/custom.css" rel="stylesheet">
+    <!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+<div class="main-content">
+    <div th:include="leftNav :: leftnav"></div>
+    <div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+    <div id="page-wrapper">
+        <div class="main-page">
+            <div class="blank-page widget-shadow scroll" id="style-2 div1">
+                <div class="form-two widget-shadow">
+                    <div class="form-title">
+                        <h4>输入分站id进行查找 :</h4>
+                    </div>
+                    <div class="form-body" data-example-id="simple-form-inline">
+                        <form class="form-inline" th:action="@{/invoiceOne}">
+                            <div class="form-group">
+                                <div  style="float: left;margin-top:6px">
+                                    <label>状态：</label>
+                                </div>
+                                <div  style="float: left">
+                                    <select class="form-control" name="status">
+                                        <option value="0">未用</option>
+                                        <option value="1">已用</option>
+                                        <option value="2">作废</option>
+                                        <option value="3">丢失</option>
+                                        <option value="3">退回</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 control-label" style="float: right">
+                                <a href="/invoiceList" th:href="@{/invoiceList}" class="btn btn-primary">搜索全部</a>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="float: right">搜索</button>
+                        </form>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="panel-body widget-shadow with:80%">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>发票id</th>
+                            <th>分站ID</th>
+                            <th>用户姓名</th>
+                            <th>报刊名称</th>
+                            <th>订单价格</th>
+                            <th>状态</th>
+                            <th>发票类型</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr  th:each="invoice : ${invoices}">
+                            <th scope="row" th:text="${invoice[0].toString()}">发票ID</th>
+                            <td th:text="${invoice[1].toString()}">分站ID</td>
+                            <td th:if="${invoice[2] != null}" th:text="${invoice[2].toString()}">用户姓名</td>
+                            <td th:if="${invoice[2] == null}" th:text="--">--</td>
+                            <td th:if="${invoice[3] != null}" th:text="${invoice[3].toString()}">报刊名称</td>
+                            <td th:if="${invoice[3] == null}">--</td>
+                            <td th:if="${invoice[4] != null}" th:text="${invoice[4].toString()}">订单价格</td>
+                            <td th:if="${invoice[4] == null}">--</td>
+                            <td th:if="${invoice[5].toString() eq '0'}">未用</td>
+                            <td th:if="${invoice[5].toString() eq '1'}">已用</td>
+                            <td th:if="${invoice[5].toString() eq '2'}">作废</td>
+                            <td th:if="${invoice[5].toString() eq '3'}">丢失</td>
+                            <td th:if="${invoice[5].toString() eq '4'}">退回</td>
+                            <td th:if="${invoice[6].toString() eq '0'}">普通发票</td>
+                            <td th:if="${invoice[6].toString() eq '1'}">增值税发票</td>
+                            <td th:if="${invoice[6].toString() eq '2'}">专用发票</td>
+                            <td><a th:href="@{/toEditInvoice(id=${invoice[0].toString()},stationId=${invoice[1].toString()})}">编辑</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--错误信息展示区-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <div th:if="${errorMsg!=null}" class="alert alert-danger" role="alert" th:text="${errorMsg}">
+                            </div>
+                        </div>
+                    </div>
+                    <div th:include="invoicePage :: pager" th:remove="tag"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:include="foot :: footer"></div>
+</div>
+<!-- Classie -->
+<script src="js/classie.js"></script>
+<script>
+    var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+        showLeftPush = document.getElementById( 'showLeftPush' ),
+        body = document.body;
+
+    showLeftPush.onclick = function() {
+        classie.toggle( this, 'active' );
+        classie.toggle( body, 'cbp-spmenu-push-toright' );
+        classie.toggle( menuLeft, 'cbp-spmenu-open' );
+        disableOther( 'showLeftPush' );
+    };
+
+    function disableOther( button ) {
+        if( button !== 'showLeftPush' ) {
+            classie.toggle( showLeftPush, 'disabled' );
+        }
+    }
+</script>
+<!--scrolling js-->
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<!--//scrolling js-->
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.js"> </script>
+</body>
+</html>

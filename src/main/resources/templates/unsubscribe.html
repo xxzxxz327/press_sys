@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>掉单详情</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<!-- //font-awesome icons -->
+ <!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<!--//webfonts--> 
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+<script src="js/wow.min.js"></script>
+	<script>
+		 new WOW().init();
+	</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+</head> 
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<div th:include="leaderleftNav :: leftnav"></div>
+		<div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<div class="tables">
+					<h3 class="title1">内容无聊</h3>
+					<div class="panel-body widget-shadow">
+						<h4>具体掉单原因:</h4>
+						<table class="table">
+							<thead>
+							<tr>
+								<th>#</th>
+								<th>原因</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<th scope="row">01</th>
+								<td>过了半个月才把报刊送过来，简直是太慢了</td>
+							</tr>
+							<tr>
+								<th scope="row">02</th>
+								<td>过了两个星期才送过来？？？这是半月刊啊，都让你们给送成全月刊物了。。</td>
+							</tr>
+							<tr>
+								<th scope="row">03</th>
+								<td>盼星星盼月亮，终于送来了，一直很喜欢这个刊物，不过能不能快一点送啊，等不及想看诶</td>
+							</tr>
+							<tr>
+								<th scope="row">04</th>
+								<td>慢慢慢慢慢慢慢慢慢慢慢慢慢慢慢死了</td>
+							</tr>
+							<tr>
+								<th scope="row">05</th>
+								<td>不知道是不是因为地区偏远，我这边总是很晚才能收到报纸……QAQ</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!--footer-->
+		<div th:include="foot :: footer"></div>        <!--//footer-->
+	</div>
+	<!-- Classie -->
+		<script src="js/classie.js"></script>
+		<script>
+			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+				showLeftPush = document.getElementById( 'showLeftPush' ),
+				body = document.body;
+				
+			showLeftPush.onclick = function() {
+				classie.toggle( this, 'active' );
+				classie.toggle( body, 'cbp-spmenu-push-toright' );
+				classie.toggle( menuLeft, 'cbp-spmenu-open' );
+				disableOther( 'showLeftPush' );
+			};
+			
+			function disableOther( button ) {
+				if( button !== 'showLeftPush' ) {
+					classie.toggle( showLeftPush, 'disabled' );
+				}
+			}
+		</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js"> </script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>问卷结果统计</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
+	rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css"
+	media="all">
+<script src="js/wow.min.js"></script>
+<script>
+		 new WOW().init();
+	</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div th:include="kefuleftnav :: leftnav"></div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<div class=" form-grids row form-grids-right">
+					<div class="widget-shadow " data-example-id="basic-forms">
+						<div class="form-title">
+							<div style="height:50px;width:100%;">
+							<div style="width:30%;float:left;">
+							<label for="id">问卷ID：</label> <input type="number"
+										class="form-control" id="id" name="id" readonly="readonly"
+										th:value="${ask.getId()}">
+							</div>
+							<div style="width:30%;float:left;margin-left:10px;">	
+							<label for="name">问卷名称：</label> <input type="text"
+										class="form-control" id="name" name="name" readonly="readonly"
+										th:value="${ask.getName()}">
+							</div>
+							
+							<div style="width:30%;float:left;margin-left:10px;">	
+							<label for="orderid">问卷编号：</label> <input type="number"
+										class="form-control" id="orderid" name="orderid" readonly="readonly"
+										th:value="${ask.getOrderid()}">
+							</div>	
+							<div style="float: right;margin-top:24px">
+											<h3>
+												<a th:href="@{/toqueryask}"><span
+													class="label label-primary">返回</span></a>
+											</h3>
+										</div>
+							<div style="clear: both; overflow: hidden;"></div>
+							</div>
+						</div>
+
+						<div class="form-body">
+							<form class="form-horizontal" >
+								
+								<div class="form-group" >
+									<div th:text="${errormessage}" ></div>
+								</div>
+								
+								<div class="form-group" th:each="QAndQitem :${objectlist}">
+									
+									<label  th:text="${QAndQitem.getQuestion().getOrderid()}+'.'"></label>
+									<div  th:text="${QAndQitem.getQuestion().getName()}"></div>
+									
+									<div th:if="${QAndQitem.getQuestion().getType()==0}" th:each="qitem :${ QAndQitem.getQitemlist() }" class="radio block" style="margin-left:20px">
+										<input type="radio" th:name="${QAndQitem.getQuestion().getId()}" th:value="${qitem.getId()}" th:text="${qitem.getName()}">
+										  <div th:if="${qitem.getResult()!=null and writeNum!=0}" th:text="${qitem.getResult()}+'人选择('+${#numbers.formatDecimal(qitem.getResult()*1.0/writeNum*100,2,2)}+'%)'" style="color:#921AFF"></div>
+										    <div th:if="${qitem.getResult()!=null and writeNum==0}" th:text="${qitem.getResult()}+'人选择('+'0'+'%)'" style="color:#921AFF"></div>
+										   <div th:if="${qitem.getResult()==null}" th:text="0人选择+'('+0+'%)'" style="color:#921AFF"></div>
+										<br>
+									</div>
+									
+									<div th:if="${QAndQitem.getQuestion().getType()!=0}" th:each="qitem:${ QAndQitem.getQitemlist() }" class="radio block">
+										<input type="checkbox" th:name="${QAndQitem.getQuestion().getId()}" th:value="${qitem.getId()}" th:text="${qitem.getName()}">
+										<div th:if="${qitem.getResult()!=null  and writeNum!=0}" th:text="${qitem.getResult()}+'人选择('+${#numbers.formatDecimal(qitem.getResult()*1.0/writeNum*100,2,2)}+'%)'" style="color:#921AFF"></div>
+										<div th:if="${qitem.getResult()!=null  and writeNum==0}" th:text="${qitem.getResult()}+'人选择('+'0'+'%)'" style="color:#921AFF"></div>
+										<div th:if="${qitem.getResult()==null}"  th:text="0人选择+'('+0+'%)'" style="color:#921AFF"></div>
+										<br>
+									</div>
+									
+								</div>
+								
+			
+								
+								
+								
+								
+
+
+								
+								
+								
+								
+
+							</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+
+		</div>
+		<!--footer-->
+		<div class="footer"></div>
+		<!--//footer-->
+	</div>
+	<!-- Classie -->
+	<script src="js/classie.js"></script>
+	<script>
+			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+				showLeftPush = document.getElementById( 'showLeftPush' ),
+				body = document.body;
+				
+			showLeftPush.onclick = function() {
+				classie.toggle( this, 'active' );
+				classie.toggle( body, 'cbp-spmenu-push-toright' );
+				classie.toggle( menuLeft, 'cbp-spmenu-open' );
+				disableOther( 'showLeftPush' );
+			};
+			
+			function disableOther( button ) {
+				if( button !== 'showLeftPush' ) {
+					classie.toggle( showLeftPush, 'disabled' );
+				}
+			}
+		</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js"> </script>
+</body>
+</html>

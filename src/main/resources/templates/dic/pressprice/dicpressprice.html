@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>报刊基本定价</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript">
+	
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+</script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- js-->
+
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+	<script type="text/javascript" src="js/setAllCheckBox.js"></script>
+<!--webfonts-->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
+	rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css"
+	media="all">
+<script src="js/wow.min.js"></script>
+<script>
+	new WOW().init();
+</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div th:include="centerleftnav :: leftnav"></div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<div class="blank-page widget-shadow scroll" id="style-2 div1">
+					<div class="form-two widget-shadow">
+						<div class="form-title">
+							<h4>输入条件进行查询:</h4>
+						</div>
+						<div class="form-body" data-example-id="simple-form-inline">
+							<form class="form-inline" th:action="@{/dicpressprice}">
+								<div class="form-group">
+									<label for="exampleInputName2">报刊名称：</label><input type="text"
+										class="form-control" id="pressName" name="pressName"
+										placeholder="请输入报刊名称" >
+									<script th:inline="javascript" type="text/javascript">
+										 var sourceName=[[${listPressName}]];
+										 $("#pressName").autocomplete({
+											 source:sourceName,
+										 		messages: {
+										        noResults: '',
+										        results: function() {}
+										    }
+											 
+										 });
+									</script>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail2">报刊ID：</label> <input
+										type="number" class="form-control" name="pressId"
+										placeholder="请输入报刊ID">
+								</div>
+								<!--  <a href="/dicDepart"><span class="label label-primary">搜索</span></a> -->
+								<button type="submit" class="btn btn-primary" >搜索</button>
+								<!--  <a href="/findall"><span class="label label-primary">搜索全部</span></a> -->
+							</form>
+						</div>
+					</div>
+				</div>
+				<div style="width: 100%; height: 35px;">
+					<div style="float: right; margin-top: 20px" >
+						<button class="btn btn-primary" onclick="document.getElementById('fdm').submit()"><h4>删除选中项</h4></button>
+					</div>
+				</div>
+
+
+				<div class="bs-example widget-shadow"
+					data-example-id="contextual-table">
+					<form th:action="@{/deletemanypressprice}" id="fdm">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th><input type="checkbox" id="quanxuan" onclick="checkAll(this)"></th>
+								<th>报刊名称</th>
+								<th>报刊ID</th>
+								<th>日价</th>
+								<th>周价</th>
+								<th>月价</th>
+								<th>季价</th>
+								<th>半年价</th>
+								<th>年价</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="press :${objectlist}">
+								<th scope="row"><input type="checkbox"  name="dx" th:value="${press.getId().toString()}" onclick="setqx()">
+								</th>
+								<td th:text="${press.getPressName()}">null</td>
+								<td th:text="${press.getId()}">0</td>
+								<td th:if="${press.getDayPrice()!=null}" th:text="${press.getDayPrice().toString()}">null</td>
+                                <td th:if="${press.getDayPrice()==null}">-</td>
+
+								<td th:if="${press.getWeekPrice()!=null}" th:text="${press.getWeekPrice().toString()}">null</td>
+								<td th:if="${press.getWeekPrice()==null}">-</td>
+                                
+                                <td th:if="${press.getMonthPrice()!=null}" th:text="${press.getMonthPrice().toString()}">null</td>
+                                <td th:if="${press.getMonthPrice()==null}">-</td>
+                                
+                                <td th:if="${press.getSessionPrice()!=null}" th:text="${press.getSessionPrice().toString()}">null</td>
+                                <td th:if="${press.getSessionPrice()==null}">-</td>
+                                
+                                <td th:if="${press.getHalfYearPrice()!=null}" th:text="${press.getHalfYearPrice().toString()}">null</td>
+                                <td th:if="${press.getHalfYearPrice()==null}">-</td>
+                                
+                                <td th:if="${press.getYearPrice()!=null}" th:text="${press.getYearPrice().toString()}">null</td>
+                                <td th:if="${press.getYearPrice()==null}">-</td>
+
+								<td><a th:href="@{/topresspriceedit(id=${press.getId()})}">编辑</a>|<a
+									th:href="@{/topresspricedelete(id=${press.getId()})}">删除</a></td>
+							</tr>
+						</tbody>
+					</table>
+					</form>
+					<!--  <div th:text="${objectlist.getNumber()}">###</div> -->
+					<div th:if="${objectlist!=null}" th:include="listpage :: pager" th:remove="tag"></div>
+				</div>
+			</div>
+		</div>
+		<!--footer-->
+		<div class="footer"></div>
+		<!--//footer-->
+	</div>
+	<!-- Classie -->
+	<script src="js/classie.js"></script>
+	<script>
+		var menuLeft = document.getElementById('cbp-spmenu-s1'), showLeftPush = document
+				.getElementById('showLeftPush'), body = document.body;
+
+		showLeftPush.onclick = function() {
+			classie.toggle(this, 'active');
+			classie.toggle(body, 'cbp-spmenu-push-toright');
+			classie.toggle(menuLeft, 'cbp-spmenu-open');
+			disableOther('showLeftPush');
+		};
+
+		function disableOther(button) {
+			if (button !== 'showLeftPush') {
+				classie.toggle(showLeftPush, 'disabled');
+			}
+		}
+	</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js">
+		
+	</script>
+</body>
+</html>

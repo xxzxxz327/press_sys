@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>报刊订单管理</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript">
+	
+	
+	
+	
+	
+	
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+
+
+
+
+
+</script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
+	rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css"
+	media="all">
+<script src="js/wow.min.js"></script>
+<script>
+	new WOW().init();
+</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div th:include="centerleftnav :: leftnav"></div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<div class="blank-page widget-shadow scroll" id="style-2 div1">
+					<div class="form-two widget-shadow">
+						<div class="form-title">
+							<h4>输入条件进行查询:</h4>
+						</div>
+						<div class="form-body" data-example-id="simple-form-inline">
+							<form class="form-inline" th:action="@{/queryorders}">
+								<div class="form-group">
+									<label for="pressName">报刊名称：</label> <input type="text"
+										class="form-control" id="pressName" name="pressName"
+										placeholder="请输入报刊名称">
+								</div>
+								
+								<div class="form-group">
+									<label for="consumerName">客户名称：</label> <input type="text"
+										class="form-control" id="consumerName" name="consumerName"
+										placeholder="请输入客户名称">
+								</div>
+								
+								<script th:inline="javascript" type="text/javascript">
+										 var sourceName1=[[${listPressName}]];
+										 $("#pressName").autocomplete({
+											 source:sourceName1,
+										 		messages: {
+										        noResults: '',
+										        results: function() {}
+										    }
+											 
+										 });
+										 
+										 var sourceName2=[[${listConsumerName}]];
+										 $("#consumerName").autocomplete({
+											 source:sourceName2,
+										 		messages: {
+										        noResults: '',
+										        results: function() {}
+										    }
+											 
+										 });
+								
+							</script>
+							
+								<div class="form-group">
+									<label for="orderId">订单ID：</label> <input type="number"
+										class="form-control" id="orderId" name="orderId"
+										placeholder="请输入订单ID">
+								</div>
+								<!--  <a href="/dicDepart"><span class="label label-primary">搜索</span></a> -->
+								<button type="submit" class="btn btn-primary">搜索</button>
+								<!--  <a href="/findall"><span class="label label-primary">搜索全部</span></a> -->
+							</form>
+						</div>
+					</div>
+				</div>
+				<div style="width: 100%; height: 35px;"></div>
+
+
+				<div class="bs-example widget-shadow"
+					data-example-id="contextual-table">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>订单ID</th>
+								<th>客户名称</th>
+								<th>报刊名称</th>
+								<th>订阅数量</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="object :${objectlist}">
+								<th scope="row" th:text="${object[0].toString()}">null</th>
+								<td th:text="${object[1].toString()}">null</td>
+								<td th:text="${object[2].toString()}">null</td>
+								<td th:text="${object[3].toString()}">null</td>
+								<td><a th:href="@{/toordersdetail(id=${object[0].toString()})}">详情</a>|
+									<a th:href="@{/toordersedit(id=${object[0].toString()})}">编辑</a>|
+									<a th:href="@{/toordersdelete(id=${object[0].toString()})}">删除</a>
+								
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--  <div th:text="${objectlist.getNumber()}">###</div> -->
+					<div th:if="${objectlist!=null}" th:include="listpage :: pager"
+						th:remove="tag"></div>
+				</div>
+			</div>
+		</div>
+		<!--footer-->
+		<div class="footer"></div>
+		<!--//footer-->
+	</div>
+	<!-- Classie -->
+	<script src="js/classie.js"></script>
+	<script>
+		var menuLeft = document.getElementById('cbp-spmenu-s1'), showLeftPush = document
+				.getElementById('showLeftPush'), body = document.body;
+
+		showLeftPush.onclick = function() {
+			classie.toggle(this, 'active');
+			classie.toggle(body, 'cbp-spmenu-push-toright');
+			classie.toggle(menuLeft, 'cbp-spmenu-open');
+			disableOther('showLeftPush');
+		};
+
+		function disableOther(button) {
+			if (button !== 'showLeftPush') {
+				classie.toggle(showLeftPush, 'disabled');
+			}
+		}
+	</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js">
+		
+	</script>
+</body>
+</html>

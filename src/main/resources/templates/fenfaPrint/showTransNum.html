@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>运输单打印</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript">
+	
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+</script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
+	rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css"
+	media="all">
+<script src="js/wow.min.js"></script>
+<script>
+	new WOW().init();
+</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+<script language="javascript">
+function printdiv(printpage)
+{
+var headstr = "<html><head><title></title></head><body>";
+var footstr = "</body>";
+var newstr = document.all.item(printpage).innerHTML;
+var oldstr = document.body.innerHTML;
+document.body.innerHTML = headstr+newstr+footstr;
+window.print(); 
+document.body.innerHTML = oldstr;
+return false;
+}
+</script>
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div th:include="fenfaleftnav :: leftnav"></div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+	            <div class="blank-page widget-shadow scroll" id="style-2 div1">
+	                <div class="form-two widget-shadow">
+	                    <div class="form-title">
+	                        <h4>输入送报点id进行查找 :</h4>
+	                    </div>
+	                    <div class="form-body" data-example-id="simple-form-inline">
+	                        <form class="form-inline" th:action="@{/showTransNum}">
+								<div class="col-sm-10">
+									<div th:if="${errorMsg!=null}" class="alert alert-danger" role="alert" th:text="${errorMsg}">
+									</div>
+								</div>
+	                            <div class="form-group" style="float: left">
+	                                <label for="SendId">送报点id：</label>
+	                                <input type="text" class="form-control" name="SendId" id="SendId" placeholder="送报点id">
+	                            </div>
+								<div class="form-group" style="float: left">
+									<label for="date">日期：</label>
+									<input type="date" class="form-control" name="date" id="date">
+								</div>
+	                            <button type="submit" class="btn btn-primary" style="float: left">搜索</button>
+	                        </form>
+	                        <div class="clearfix"> </div>
+	                    </div>
+	                    <div class="clearfix"> </div>
+	                </div>
+	                &nbsp;&nbsp;&nbsp;&nbsp;
+	                &nbsp;&nbsp;&nbsp;&nbsp;
+	                <div class="panel-body widget-shadow with:80%">
+	                    
+	                    <table class="table table-hover">
+	                        <thead>
+	                        <tr>
+	                            <th>送报点名称</th>
+	                            <th>运输数</th>
+	                            <th>日期</th>
+	                            <th>操作</th>
+	                        </tr>
+	                        </thead>
+	                        <tbody>
+		                      <tr  th:each="transNum : ${objectlist}">
+	                            <th scope="row" th:text="${transNum[1].toString()}">1</th>
+	                            <td th:text="${transNum[0].toString()}"></td>
+	                            <td th:text="${#dates.format(transNum[2],'yyyy-MM-dd')}"></td>
+	                            <td><a th:href="@{/printTransNum(id=${id},date=${#dates.format(transNum[2],'yyyy-MM-dd')})}">打印</a></td>
+	                           </tr>
+	                        </tbody>
+	                    </table>
+	                   
+	                </div>
+	            </div>
+	        </div>
+        </div>>
+		<!--footer-->
+		<div class="footer"></div>
+		<!--//footer-->
+	</div>
+	<!-- Classie -->
+	<script src="js/classie.js"></script>
+	<script>
+		var menuLeft = document.getElementById('cbp-spmenu-s1'), showLeftPush = document
+				.getElementById('showLeftPush'), body = document.body;
+
+		showLeftPush.onclick = function() {
+			classie.toggle(this, 'active');
+			classie.toggle(body, 'cbp-spmenu-push-toright');
+			classie.toggle(menuLeft, 'cbp-spmenu-open');
+			disableOther('showLeftPush');
+		};
+
+		function disableOther(button) {
+			if (button !== 'showLeftPush') {
+				classie.toggle(showLeftPush, 'disabled');
+			}
+		}
+	</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js">
+	
+	</script>
+	
+	<!-- <script language="javascript">
+	function printme(){
+	 document.body.innerHTML=document.getElementById('div1').innerHTML;
+	 window.print();
+	}
+	</script> -->
+</body>
+</html>

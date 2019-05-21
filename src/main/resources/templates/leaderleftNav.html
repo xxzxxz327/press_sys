@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="leaderleftNav">
+<body>
+<div th:fragment="leftnav">
+    <div class=" sidebar" role="navigation">
+        <div class="navbar-collapse">
+            <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="index.html"><i class="fa fa-cogs nav_icon"></i>报刊图表统计<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/leader_index" th:href="@{/leader_index}">报刊订量分站统计</a>
+                            </li>
+                            <li>
+                                <a href="/sum_yearsta" th:href="@{/sum_yearsta}">报刊订量年统计</a>
+                            </li>
+                            <li>
+                                <a href="/sum_pastyearsta" th:href="@{/sum_pastyearsta}">历年报刊订量统计</a>
+                            </li>
+                            <li>
+                                <a href="/buy_order" th:href="@{/buy_order}">订阅订购对比分析</a>
+                            </li>
+                            <li>
+                                <a href="/money_index" th:href="@{/money_index}">订阅金额分站统计</a>
+                            </li>
+                        </ul>
+                        <!-- /nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-cogs nav_icon"></i>订户统计分析<span class="fa arrow"></span> </a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/user_time" th:href="@{/user_time}">订户订期分析</a>
+                            </li>
+                            <li>
+                                <a href="/user_character" th:href="@{/user_character}">订户性质分析</a>
+                            </li>
+                            <li>
+                                <a href="/user_survey" th:href="@{/user_survey}">订户调查分析</a>
+                            </li>
+                        </ul>
+                        <!-- /nav-second-level -->
+                    </li>
+                    <li class="">
+                        <a href="#"><i class="fa fa-book nav_icon"></i>报刊订阅业务情况查询<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/station_log" th:href="@{/station_log}">分站日志查询</a>
+                            </li>
+                            <li>
+                                <a href="/unsubscribe_reasonsta" th:href="@{/unsubscribe_reasonsta}">掉单原因统计分析</a>
+                            </li>
+                            <li>
+                                <a href="/complain_month" th:href="@{/complain_month}">投诉情况月报</a>
+                            </li>
+                            <li>
+                                <a href="/expire_daily" th:href="@{/expire_daily}">每日投递到期单报表</a>
+                            </li>
+                        </ul>
+                        <!-- /nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="/daily_log" th:href="@{/daily_log}"><i class="fa fa-th-large nav_icon"></i>每日汇总表</a>
+                    </li>
+                    <li>
+                        <a href="/station_monthsta" th:href="@{/station_monthsta}"><i class="fa fa-envelope nav_icon"></i>分站月结算统计</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-check-square-o nav_icon"></i>辅助业务<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/unReadMessageList" th:href="@{/unReadMessageList}">收取通知</a>
+                            </li>
+                            <li>
+                                <a href="/toSendMessage" th:href="@{/toSendMessage}">发送通知</a>
+                            </li>
+                            <li>
+                                <a href="/readMessageList" th:href="@{/readMessageList}">已阅读通知</a>
+                            </li>
+                            <li>
+                                <a href="/tochangePassword" th:href="@{/tochangePassword}">修改密码</a>
+                            </li>
+                        </ul>
+                        <!-- //nav-second-level -->
+                    </li>
+                </ul>
+                <div class="clearfix"> </div>
+                <!-- //sidebar-collapse -->
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>

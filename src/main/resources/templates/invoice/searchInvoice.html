@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>发票查询</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <!-- font CSS -->
+    <!-- font-awesome icons -->
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <!-- js-->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/modernizr.custom.js"></script>
+    <!--webfonts-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!--//webfonts-->
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
+    <!-- Metis Menu -->
+    <script src="js/metisMenu.min.js"></script>
+    <script src="js/custom.js"></script>
+    <link href="css/custom.css" rel="stylesheet">
+    <script src="js/LodopFuncs.js"></script>
+    <!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+<div class="main-content">
+    <div th:include="caiwuleftNav :: leftnav"></div>
+    <div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+    <div id="page-wrapper">
+        <div class="main-page">
+            <div class="blank-page widget-shadow scroll" id="style-2 div1">
+                <h3>发票ID查询</h3>
+                <div class="form-two widget-shadow">
+
+                    <div class="form-body" data-example-id="simple-form-inline">
+                        <form class="form-inline" th:action="@{/findinvoicebyid}">
+                            <div class="form-group col-md-4">
+
+                                <input type="text" class="form-control" name="id" id="invoice" placeholder="发票ID">
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="float: left">搜索</button>
+                            <a href="javascript:Preview2()" class="btn btn-primary" style="float:right;">打印预览</a>
+
+                        </form>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="panel-body widget-shadow with:80%">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>发票ID</th>
+                            <th>发票类型</th>
+                            <th>发票状态</th>
+                            <th>所在分站</th>
+                            <th>关联订单</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr  th:each="order : ${orders}">
+                            <th scope="row" th:text="${order[0].toString()}">null</th>
+                            <td th:if="${order[1]==0}" >普通发票</td>
+                            <td th:if="${order[1]==1}" >增值税发票</td>
+                            <td th:if="${order[1]==2}" >专用发票</td>
+                            <td th:if="${order[2]==0}" >未使用</td>
+                            <td th:if="${order[2]==1}" >已使用</td>
+                            <td th:if="${order[2]==2}" >作废</td>
+                            <td th:if="${order[2]==3}" >丢失</td>
+                            <td th:if="${order[2]==4}" >退回</td>
+                            <td th:if="${order[2]==null}" >-</td>
+                            <td th:if="${order[3]!=null}" th:text="${order[3].toString()}">null</td>
+                            <td th:if="${order[3]==null}" >-</td>
+                            <td th:if="${order[4]!=null}" th:text="${order[4].toString()}">null</td>
+                            <td th:if="${order[4]==null}" >-</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--<div th:include="consumerPage :: pager" th:remove="tag"></div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:include="foot :: footer"></div>
+</div>
+<!-- Classie -->
+<script src="js/classie.js"></script>
+<script>
+    var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+        showLeftPush = document.getElementById( 'showLeftPush' ),
+        body = document.body;
+
+    showLeftPush.onclick = function() {
+        classie.toggle( this, 'active' );
+        classie.toggle( body, 'cbp-spmenu-push-toright' );
+        classie.toggle( menuLeft, 'cbp-spmenu-open' );
+        disableOther( 'showLeftPush' );
+    };
+
+    function disableOther( button ) {
+        if( button !== 'showLeftPush' ) {
+            classie.toggle( showLeftPush, 'disabled' );
+        }
+    }
+</script><script th:inline="javascript" type="text/javascript">
+    var sourceName=[[${listConsumerName}]];
+    $("#consumerName").autocomplete({
+        source:sourceName,
+        messages: {
+            noResults: '',
+            results: function() {}
+        }
+    });
+</script>
+<script language="javascript" src="js/LodopFuncs.js"></script>
+<script language="javascript" type="text/javascript">
+    var LODOP; //声明为全局变量
+    var id = '[[${id}]]';
+    var price = [[${price}]];
+    var cname = '[[${name}]]';
+    var phone = '[[${phone}]]';
+    var status='[[${status}]]';
+    var now="[[${#dates.format(now,'yyyy-MM-dd HH:mm:ss')}]]";
+    var priceCN='[[${priceCN}]]';
+    function Preview2() {
+
+        if(status=='1')
+        {
+            alert(priceCN);
+            CreateDataBill();
+            LODOP.PREVIEW();
+        }else{
+            alert("此发票无法打印");
+        }
+
+    };
+
+    function CreateDataBill() {
+        LODOP = getLodop();
+
+        LODOP.ADD_PRINT_SHAPE(2,116,43,655,373,0,1,"#800000");
+        LODOP.ADD_PRINT_SHAPE(1,144,44,653,1,0,1,"#800000");
+        LODOP.ADD_PRINT_SHAPE(1,172,44,653,1,0,1,"#800000");
+        LODOP.ADD_PRINT_SHAPE(0,116,143,1,56,0,1,"#800000");
+        LODOP.ADD_PRINT_SHAPE(0,116,488,1,56,0,1,"#800000");
+        LODOP.ADD_PRINT_SHAPE(0,116,574,1,372,0,1,"#800000");
+        LODOP.ADD_PRINT_SHAPE(0,172,166,1,282,0,1,"#800000");
+        LODOP.ADD_PRINT_SHAPE(0,172,415,1,282,0,1,"#800000");
+        LODOP.ADD_PRINT_SHAPE(1,454,44,653,1,0,1,"#800000");
+        LODOP.ADD_PRINT_SHAPE(0,454,130,1,34,0,1,"#800000");
+        LODOP.ADD_PRINT_SHAPE(0,454,483,1,34,0,1,"#800000");
+        LODOP.ADD_PRINT_SHAPE(0,64,62,120,1,0,1,"#0000FF");
+        LODOP.ADD_PRINT_SHAPE(3,29,62,32,32,0,4,"#0000FF");
+        LODOP.ADD_PRINT_SHAPE(3,21,300,147,75,0,3,"#FF0000");
+        LODOP.ADD_PRINT_SHAPE(3,26,307,132,65,0,1,"#FF0000");
+        LODOP.ADD_PRINT_TEXT(33,192,408,30,"中国报刊发行中心专用发票");
+        LODOP.SET_PRINT_STYLEA(0,"FontSize",15);
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#800000");
+        LODOP.SET_PRINT_STYLEA(0,"Alignment",2);
+        LODOP.ADD_PRINT_TEXT(68,326,100,25,"发 票 联");
+        LODOP.SET_PRINT_STYLEA(0,"FontSize",11);
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#800000");
+        LODOP.SET_PRINT_STYLEA(0,"Alignment",2);
+        LODOP.ADD_PRINT_TEXT(29,98,84,35,"中国报刊CHINA PRESS");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#0000FF");
+        LODOP.ADD_PRINT_SHAPE(2,37,69,18,15,0,1,"#0000FF");
+        LODOP.ADD_PRINT_SHAPE(2,40,73,10,9,0,1,"#0000FF");
+        LODOP.ADD_PRINT_TEXT(70,64,117,20,"报 刊 发 行 中 心");
+        LODOP.SET_PRINT_STYLEA(0,"FontSize",8);
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#0000FF");
+        LODOP.SET_PRINT_STYLEA(0,"Alignment",2);
+        LODOP.ADD_PRINT_TEXT(124,58,68,20,"客户名称");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#800000");
+        LODOP.SET_PRINT_STYLEA(0,"Alignment",2);
+        LODOP.ADD_PRINT_TEXT(152,58,68,20,"手机号码");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#800000");
+        LODOP.SET_PRINT_STYLEA(0,"Alignment",2);
+        LODOP.ADD_PRINT_TEXT(124,497,68,20,"受理类别");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#800000");
+        LODOP.SET_PRINT_STYLEA(0,"Alignment",2);
+        LODOP.ADD_PRINT_TEXT(152,497,68,20,"合 同 号");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#800000");
+        LODOP.SET_PRINT_STYLEA(0,"Alignment",2);
+        LODOP.ADD_PRINT_TEXT(465,54,68,20,"大写金额");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#800000");
+        LODOP.SET_PRINT_STYLEA(0,"Alignment",2);
+        LODOP.ADD_PRINT_TEXT(465,495,104,20,"小写金额    ￥: ");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#800000");
+        LODOP.SET_PRINT_STYLEA(0,"Alignment",3);
+        LODOP.ADD_PRINT_TEXT(95,61,48,20,"日期：");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#800000");
+        LODOP.SET_PRINT_STYLEA(0,"Alignment",3);
+        LODOP.ADD_PRINT_TEXT(97,500,71,20,"发票号码：");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#800000");
+        LODOP.SET_PRINT_STYLEA(0,"Alignment",3);
+        LODOP.ADD_PRINT_TEXT(497,53,83,20,"营业员工号：");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#800000");
+        LODOP.SET_PRINT_STYLEA(0,"Alignment",3);
+        LODOP.ADD_PRINT_TEXT(496,480,93,20,"收款单位名称：");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#800000");
+        LODOP.SET_PRINT_STYLEA(0,"Alignment",3);
+        LODOP.ADD_PRINT_TEXT(226,703,27,121,"第二联发票联");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#800000");
+        LODOP.SET_PRINT_STYLEA(0,"Alignment",2);
+        LODOP.ADD_PRINT_TEXT(203,21,17,195,"京地税准印八九号五百万份");
+        LODOP.SET_PRINT_STYLEA(0,"FontSize",8);
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#800000");
+        LODOP.SET_PRINT_STYLEA(0,"Alignment",2);
+        LODOP.ADD_PRINT_TEXT(126,150,100,20,cname);
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#0000FF");
+        LODOP.ADD_PRINT_TEXT(151,150,100,20,[[${phone}]]);
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#0000FF");
+        LODOP.ADD_PRINT_TEXT(125,584,99,20,"发票打印(第1次)");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#0000FF");
+        LODOP.ADD_PRINT_TEXT(465,140,198,20,priceCN);
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#0000FF");
+        LODOP.ADD_PRINT_TEXT(465,599,70,20,[[${price}]]);
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#0000FF");
+        LODOP.ADD_PRINT_TEXT(497,135,59,20,"H112063");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#0000FF");
+        LODOP.ADD_PRINT_TEXT(191,58,100,20,"订单金额");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#0000FF");
+        LODOP.ADD_PRINT_TEXT(191,217,100,20,[[${price}]]);
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#0000FF");
+        LODOP.ADD_PRINT_TEXT(95,110,150,20,now);
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#0000FF");
+        LODOP.ADD_PRINT_TEXT(95,571,112,20,[[${id}]]);
+        LODOP.SET_PRINT_STYLEA(0,"FontName","System");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#0000FF");
+        LODOP.ADD_PRINT_TEXT(76,500,71,20,"发票代码：");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#800000");
+        LODOP.SET_PRINT_STYLEA(0,"Alignment",3);
+        LODOP.ADD_PRINT_TEXT(74,571,112,20,"237090742401");
+        LODOP.SET_PRINT_STYLEA(0,"FontName","System");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#FF0000");
+        LODOP.ADD_PRINT_TEXT(496,572,112,20,"中国报刊发行");
+        LODOP.SET_PRINT_STYLEA(0,"FontColor","#0000FF");          }
+</script>
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<!--//scrolling js-->
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.js"> </script>
+</body>
+</html>

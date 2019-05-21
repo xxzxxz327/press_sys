@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>基础信息查询</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript">
+	
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+</script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
+	rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css"
+	media="all">
+<script src="js/wow.min.js"></script>
+<script>
+	new WOW().init();
+</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div th:include="leftNav :: leftnav"></div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+	            <div class="blank-page widget-shadow scroll" id="style-2 div1">
+	                <div class="form-two widget-shadow">
+	                    <div class="form-title">
+	                        <h4>输入报刊id进行查找 :</h4>
+	                    </div>
+	                    <div class="form-body" data-example-id="simple-form-inline">
+	                        <form class="form-inline" th:action="@{/tofindbaseinfo}">
+	                        	 <!-- <div class="form-group" style="float: left;margin-top:0px">
+	                                <select class="form-control1" name="dutyId" style="width:100px;"onchange="window.location=this.value;">
+	                                		<option value="/toshowbaseinfo" >报刊基本信息</option>
+	                                		<option value="/toshowdeliver" >2</option>
+	                                </select> 
+	                            </div> -->
+								<input type="hidden" name="stationId" th:value="${session.stationId}">
+	                            <div class="form-group" style="float: left">
+	                                <label for="pressName">报刊名称：</label>
+	                                <input type="text"
+										class="form-control" id="pressName" name="pressName"
+										placeholder="请输入报刊名称" >
+										<script th:inline="javascript" type="text/javascript">
+										 var sourceName=[[${pressNamelist}]];
+										 $("#pressName").autocomplete({
+											 source:sourceName,
+										 		messages: {
+										        noResults: '',
+										        results: function() {}
+										    }
+											 
+										 });
+								
+									</script> 
+	                            </div>
+	                            <button type="submit" class="btn btn-primary" style="float: left">搜索</button>
+	                            <!-- <div class="col-lg-2 control-label" style="float: left">
+	                                <a href="/findalldeliver" th:href="@{/findalldeliver}" class="btn btn-primary">搜索全部</a>
+	                            </div> -->
+	                        </form>
+	                        <div class="clearfix"> </div>
+	                    </div>
+	                    <div class="clearfix"> </div>
+	                </div>
+	                &nbsp;&nbsp;&nbsp;&nbsp;
+	                <!-- <div class="panel-body widget-shadow">
+	                    <div class="form-group">
+	                        <div class="col-lg-2 control-label" style="float: left">
+	                            <a href="/todeliveradd" th:href="@{/todeliveradd}" class="btn btn-primary">添加投递段</a>
+	                        </div>
+	                        <div class="col-lg-2 control-label" style="float: right">
+	                            <a href="/todeliverprint" th:href="@{/todeliverprint}" class="btn btn-primary">打印投递段</a>
+	                        </div>
+	                        
+	                    </div>
+	                </div> -->
+	                &nbsp;&nbsp;&nbsp;&nbsp;
+	                <div class="panel-body widget-shadow with:80%">
+	                    <table class="table table-hover">
+	                        <thead>
+	                        <tr>
+	                            <th>报刊id</th>
+	                            <th>报刊名称</th>
+	                            <th>报社名称</th>
+	                            <th>类型</th>
+	                            <th>按日</th>
+	                            <th>按周</th>
+	                            <th>按月</th>
+	                            <th>按季</th>
+	                            <th>按半年</th>
+	                            <th>按年</th>
+	                        </tr>
+	                        </thead>
+	                        <tbody>
+		                      <tr  th:each="press : ${objectlist}">
+	                            <th scope="row" th:text="${press[0].toString()}">1</th>
+	                            <td th:text="${press[1].toString()}">null</td>
+	                            <td th:text="${press[2].toString()}">null</td>
+	                            <td th:if="${press[3]==1}">日刊</td>
+	                            <td th:if="${press[3]==2}">周刊</td>
+	                            <td th:if="${press[3]==3}">月刊</td>
+	                            <td th:if="${press[3]==4}">季刊</td>
+	                            <td th:if="${press[3]==5}">半年刊</td>
+	                            <td th:if="${press[3]==6}">年刊</td>
+	                            
+	                           	<td th:text="${press[4]}">null</td>
+	                          	<td th:if="${press[5]!=0}" th:text="${press[5]}"></td>
+	                           	<td th:if="${press[5]==0}">-</td>
+	                            <td th:if="${press[6]!=0}" th:text="${press[6]}"></td>
+	                           	<td th:if="${press[6]==0}">-</td>
+	                            <td th:if="${press[7]!=0}" th:text="${press[7]}"></td>
+	                           	<td th:if="${press[7]==0}">-</td>
+	                            <td th:if="${press[8]!=0}" th:text="${press[8]}"></td>
+	                           	<td th:if="${press[8]==0}">-</td>
+	                            <td th:if="${press[9]!=0}" th:text="${press[9]}"></td>
+	                           	<td th:if="${press[9]==0}">-</td>
+	                           </tr>
+	                        </tbody>
+	                    </table>
+	                   <div th:if="${objectlist!=null}" th:include="listpage :: pager" th:remove="tag"></div>
+	                </div>
+	            </div>
+	        </div>
+        </div>>
+		<!--footer-->
+		<div class="footer"></div>
+		<!--//footer-->
+	</div>
+	<!-- Classie -->
+	<script src="js/classie.js"></script>
+	<script>
+		var menuLeft = document.getElementById('cbp-spmenu-s1'), showLeftPush = document
+				.getElementById('showLeftPush'), body = document.body;
+
+		showLeftPush.onclick = function() {
+			classie.toggle(this, 'active');
+			classie.toggle(body, 'cbp-spmenu-push-toright');
+			classie.toggle(menuLeft, 'cbp-spmenu-open');
+			disableOther('showLeftPush');
+		};
+
+		function disableOther(button) {
+			if (button !== 'showLeftPush') {
+				classie.toggle(showLeftPush, 'disabled');
+			}
+		}
+	</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js">
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>订单管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <!-- font CSS -->
+    <!-- font-awesome icons -->
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <!-- js-->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/modernizr.custom.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <!--webfonts-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!--//webfonts-->
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
+    <!-- Metis Menu -->
+    <script src="js/metisMenu.min.js"></script>
+    <script src="js/custom.js"></script>
+    <link href="css/custom.css" rel="stylesheet">
+    <!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+<div class="main-content">
+    <div th:include="leftNav :: leftnav"></div>
+    <div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+    <div id="page-wrapper">
+        <div class="main-page">
+            <div class="blank-page widget-shadow scroll" id="style-2 div1">
+
+                <div class="form-two widget-shadow">
+
+                    <div class="form-title">
+                        <h4>输入订单id进行查找 :</h4>
+                    </div>
+                    <div class="form-body" data-example-id="simple-form-inline">
+                        <div class="col-sm-10">
+                            <div th:if="${errorMsg!=null}" class="alert alert-danger" role="alert" th:text="${errorMsg}">
+                            </div>
+                        </div>
+                        <form class="form-inline" th:action="@{/ordersOne}">
+                            <div class="form-group col-md-4">
+                                <label for="consumerName">客户姓名：</label>
+                                <input type="text" class="form-control" name="consumerName" id="consumerName" placeholder="客户姓名" >
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="float: left">搜索</button>
+                            <div class="col-lg-2 control-label" style="float: left">
+                                <a href="/ordersList" th:href="@{/ordersList}" class="btn btn-primary">搜索全部</a>
+                            </div>
+                            <div class="col-lg-2 control-label" style="float: left">
+                                <a href="/ordersNotPay" th:href="@{/ordersNotPay}" class="btn btn-primary">搜索全部未支付</a>
+                            </div>
+                        </form>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="panel-body widget-shadow">
+                    <div class="form-group">
+                        <div class="col-lg-2 control-label" style="float: left">
+                            <a href="/toAddOrders" th:href="@{/toAddOrders}" class="btn btn-primary">添加订单</a>
+                        </div>
+                        <div class="col-lg-2 control-label" style="float: left">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gridSystemModal">批量添加 </button>
+                            <div class="modal fade" id="gridSystemModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="gridSystemModalLabel">选择文件上传</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" th:action="@{/uploadOrders}" enctype="multipart/form-data" class="modal-grids">
+                                                <input type="file" name="file" class="btn btn-primary" /></br></br>
+                                                <input type="submit" value="提交" class="btn btn-primary">
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+                        </div>
+                    </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="panel-body widget-shadow with:80%">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>订单id</th>
+                            <th>用户姓名</th>
+                            <th>报刊名称</th>
+                            <th>支付状态</th>
+                            <th>订阅类型</th>
+                            <th>份数</th>
+                            <th>价格</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr  th:each="order : ${orders}">
+                            <th scope="row" th:text="${order[0].toString()}">1</th>
+                            <td th:text="${order[1].toString()}">null</td>
+                            <td th:text="${order[2].toString()}">null</td>
+                            <td th:if="${order[3].toString()} eq '0'">未支付</td>
+                            <td th:if="${order[3].toString()} eq '1'">普通支付</td>
+                            <td th:if="${order[3].toString()} eq '2'">延期支付</td>
+                            <td th:if="${order[3].toString()} eq '3'">已退订</td>
+                            <td th:if="${order[3].toString()} eq '4'">已转址</td>
+                            <td th:if="${order[3].toString()} eq '5'">已延期</td>
+                            <td th:if="${order[3].toString()} eq '6'">已续订</td>
+                            <td th:if="${order[4].toString()} eq '0'">普通订阅</td>
+                            <td th:if="${order[4].toString()} eq '1'">跨站订阅</td>
+                            <td th:text="${order[5].toString()}">null</td>
+                            <td th:text="${#numbers.formatDecimal(order[6],1,2)}">null</td>
+                            <td>
+                                <a th:if="${order[3].toString() eq '0'||order[3].toString() eq '6'}" th:href="@{/toPayOrder(id=${order[0].toString()})}">收款</a>
+                                <a th:unless="${order[3].toString() eq '0'||order[3].toString() eq '6'}">——</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div th:include="orderPage :: pager" th:remove="tag"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:include="foot :: footer"></div>
+</div>
+<!-- Classie -->
+<script src="js/classie.js"></script>
+<script>
+    var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+        showLeftPush = document.getElementById( 'showLeftPush' ),
+        body = document.body;
+
+    showLeftPush.onclick = function() {
+        classie.toggle( this, 'active' );
+        classie.toggle( body, 'cbp-spmenu-push-toright' );
+        classie.toggle( menuLeft, 'cbp-spmenu-open' );
+        disableOther( 'showLeftPush' );
+    };
+
+    function disableOther( button ) {
+        if( button !== 'showLeftPush' ) {
+            classie.toggle( showLeftPush, 'disabled' );
+        }
+    }
+</script>
+<script th:inline="javascript" type="text/javascript">
+    var sourceName=[[${listConsumerName}]];
+    $("#consumerName").autocomplete({
+        source:sourceName,
+        messages: {
+            noResults: '',
+            results: function() {}
+        }
+    });
+</script>
+<!--scrolling js-->
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<!--//scrolling js-->
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.js"> </script>
+</body>
+</html>

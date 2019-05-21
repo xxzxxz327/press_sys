@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>添加变更原因</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
+	rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css"
+	media="all">
+<script src="js/wow.min.js"></script>
+<script>
+		 new WOW().init();
+	</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div th:include="centerleftnav :: leftnav"></div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<div class=" form-grids row form-grids-right">
+					<div class="widget-shadow " data-example-id="basic-forms">
+						<div class="form-title">
+							<h4>编辑信息表单:</h4>
+						</div>
+
+						<div class="form-body">
+							<form class="form-horizontal" th:action="@{/reasonadd(selectName=${selectName})}">
+						
+								<div class="form-group">
+									<label for="reasonName" class="col-sm-2 control-label" >变更原因名称</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="reasonName"  name="reasonName">
+									</div>	
+								</div>
+								
+								<div class="form-group">
+									<label for="status" class="col-sm-2 control-label" >变更原因类型</label>
+									<div class="col-sm-9">
+										<select class="form-control" name="status">
+											<option th:value="0" th:text="'0'+' '+'新订'" >--</option>
+											<option th:value="1" th:text="'1'+' '+'新订'" >--</option>
+											<option th:value="2" th:text="'2'+' '+'新订'" >--</option>
+											<option th:value="3" th:text="'3'+' '+'退订'" >--</option>
+											<option th:value="4" th:text="'4'+' '+'转址'" >--</option>
+											<option th:value="5" th:text="'5'+' '+'延期'" >--</option>
+											<option th:value="6" th:text="'6'+' '+'续订'" >--</option>
+										</select>
+									</div>	
+								</div>
+								
+								
+								
+
+
+							<div class="col-sm-offset-2" >
+									<div>
+										<div style="float:left"><button type="submit" class="btn btn-primary">提交</button></div>
+										<div style="float:right;margin-right:100px"><h3><a th:href="@{/dicReason(reasonName=${selectName})}"><span class="label label-primary">返回</span></a></h3></div>
+										
+									</div>
+									<div style="clear:both;overflow:hidden;"></div>
+										
+									<div th:text="${errormessage}"></div>
+								</div>
+								
+								
+
+							</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+
+		</div>
+		<!--footer-->
+		<div class="footer"></div>
+		<!--//footer-->
+	</div>
+	<!-- Classie -->
+	<script src="js/classie.js"></script>
+	<script>
+			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+				showLeftPush = document.getElementById( 'showLeftPush' ),
+				body = document.body;
+				
+			showLeftPush.onclick = function() {
+				classie.toggle( this, 'active' );
+				classie.toggle( body, 'cbp-spmenu-push-toright' );
+				classie.toggle( menuLeft, 'cbp-spmenu-open' );
+				disableOther( 'showLeftPush' );
+			};
+			
+			function disableOther( button ) {
+				if( button !== 'showLeftPush' ) {
+					classie.toggle( showLeftPush, 'disabled' );
+				}
+			}
+		</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js"> </script>
+</body>
+</html>

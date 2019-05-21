@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="centerleftnav">
+<body>
+<div th:fragment="leftnav" >
+<div class=" sidebar" role="navigation" >
+            <div class="navbar-collapse" >
+				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1" style="overflow-y:auto;padding-bottom:100px">
+					<ul class="nav" id="side-menu" >
+						<li>
+							<a href="index.html"><i class="fa fa-home nav_icon"></i>字典维护</a>
+							<ul class="nav nav-second-level collapse">
+								<li>
+									<a href="/todicdepart" th:href="@{/todicdepart}">部门设置</a>
+								</li>
+								<li>
+									<a href="/todicoffice" th:href="@{/todicoffice}">报社设置</a>
+								</li>
+								<li>
+									<a href="/todicreason" th:href="@{/todicreason}">变更原因设置</a>
+								</li>
+								<li>
+									<a href="/todicduty" th:href="@{/todicduty}">职务设置</a>
+								</li>
+								<li>
+									<a href="/todicarea" th:href="@{/todicarea}">地区设置</a>
+								</li>
+								<li>
+									<a href="/todictransinfo" th:href="@{/todictransinfo}">运输设置</a>
+								</li>
+								<li>
+									<a href="/todicmerit" th:href="@{/todicmerit}">绩效设置</a>
+								</li>
+								<li>
+									<a href="/toinfoshow" th:href="@{/toinfoshow}">公司信息设置</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#"><i class="fa fa-cogs nav_icon"></i>人事管理</a>
+							<ul class="nav nav-second-level collapse">
+								<li>
+									<a href="/todicstaff" th:href="@{/todicstaff}">员工管理</a>
+								</li>
+								<li>
+									<a href="/todicperformance" th:href="@{/todicperformance}">业绩统计</a>
+								</li>
+							</ul>
+							<!-- /nav-second-level -->
+						</li>
+						<li class="">
+							<a href="#"><i class="fa fa-book nav_icon"></i>辅助业务</a>
+							<ul class="nav nav-second-level collapse">
+								<li>
+									<a href="/unReadMessageList" th:href="@{/unReadMessageList}">收取通知</a>
+								</li>
+								<li>
+									<a href="/toSendMessage" th:href="@{/toSendMessage}">发送通知</a>
+								</li>
+								<li>
+									<a href="/readMessageList" th:href="@{/readMessageList}">已阅读通知</a>
+								</li>
+								<li>
+									<a href="/tochangePassword" th:href="@{/tochangePassword}">修改密码</a>
+								</li>
+								<li>
+									<a href="/todicdeliveraddress"  th:href="@{/todicdeliveraddress}">纠正地址</a>
+								</li>
+							</ul>
+							<!-- /nav-second-level -->
+						</li>
+
+						<li>
+							<a href="#"><i class="fa fa-envelope nav_icon"></i>报刊设置</a>
+							<ul class="nav nav-second-level collapse">
+								<li>
+									<a href="todicpresssetting" th:href="@{/todicpresssetting}">报刊设置</a>
+								</li>
+								<li>
+									<a href="todicattribute" th:href="@{/todicattribute}">报刊属性设置</a>
+								</li>
+								<li>
+									<a href="todicpressfrequency" th:href="@{/todicpressfrequency}">刊期设置</a>
+								</li>
+								<li>
+									<a href="todicpressprice" th:href="@{/todicpressprice}">报刊基本定价</a>
+								</li>
+								<li>
+									<a href="todicpressdiscount" th:href="@{/todicpressdiscount}">报刊优惠设置</a>
+								</li>
+							</ul>
+							<!-- //nav-second-level -->
+						</li>
+						<li>
+							<a href="#"><i class="fa fa-check-square-o nav_icon"></i>附赠设置</a>
+							<ul class="nav nav-second-level collapse">
+								<li>
+									<a href="/todiczenka" th:href="@{/todiczenka}">赠卡设置</a>
+								</li>
+								<li>
+									<a href="/todicvoucher" th:href="@{/todicvoucher}">代金券设置</a>
+								</li>
+							</ul>
+							<!-- //nav-second-level -->
+						</li>
+						<li>
+							<a href="#"><i class="fa fa-file-text-o nav_icon"></i>汇总</a>
+							<ul class="nav nav-second-level collapse">
+								<li>
+									<a href="/tototalxiadan" th:href="@{/tototalxiadan}">下单数汇总</a>
+								</li>
+								<li>
+									<a href="/tototalyaobao" th:href="@{/tototalyaobao}">要报统计</a>
+								</li>
+							</ul>
+							<!-- //nav-second-level -->
+						</li>
+						<li>
+							<a href="charts.html" class="chart-nav"><i class="fa fa-bar-chart nav_icon"></i>查询</a>
+							<ul class="nav nav-second-level collapse">
+								<li>
+									<a href="/toquerypress" th:href="@{/toquerypress}">报刊信息查询</a>
+								</li>
+								<li>
+									<a href="/tocuorder" th:href="@{/tocuorder}">订户订购查询</a>
+								</li>
+								<li>
+									<a href="/toqueryorders" th:href="@{/toqueryorders}">报刊订单管理</a>
+								</li>
+								<li>
+									<a href="/toquerydaycharts" th:href="@{/toquerydaycharts}">站点日派报月表</a>
+								</li>
+								<li>
+									<a href="/toquerymonthcharts" th:href="@{/toquerymonthcharts}">征订月报表</a>
+								</li>
+							</ul>
+						</li>
+						
+						
+					</ul>
+					<div class="clearfix"> </div>
+					<!-- //sidebar-collapse -->
+				</nav>
+			</div>
+		</div>
+</div>
+</body>
+</html>

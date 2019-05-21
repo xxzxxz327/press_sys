@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="leftNav">
+<body>
+<div th:fragment="leftnav">
+    <div class="sidebar" role="navigation">
+        <div class="navbar-collapse scroll">
+            <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1" style="overflow-y: auto">
+                <ul class="nav" id="side-menu">
+                    <li class="">
+                        <a href="/consumerList" th:href="@{/consumerList}" class="active"><i class="fa fa-home nav_icon"></i>客户管理</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-cogs nav_icon"></i>商品订购 <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/ordersList" th:href="@{/ordersList}">新订</a>
+                            </li>
+                            <li>
+                                <a href="/orderUnsub" th:href="@{/orderUnsub}">退订</a>
+                            </li>
+                            <li>
+                                <a href="/orderChange" th:href="@{/orderChange}">转址</a>
+                            </li>
+                            <li>
+                                <a href="/orderPostpone" th:href="@{/orderPostpone}">延期</a>
+                            </li>
+                            <li>
+                                <a href="/orderLonger" th:href="@{/orderLonger}">续订</a>
+                            </li>
+                            <li>
+                                <a href="/toOrderFuzeng" th:href="@{/toOrderFuzeng}">附赠</a>
+                            </li>
+                        </ul>
+                        <!-- /nav-second-level -->
+                    </li>
+                    <li class="">
+                        <a href="/ordersAlter" th:href="@{/ordersAlter}"><i class="fa fa-book nav_icon"></i>订购变更</a>
+                    </li>
+                    <li class="">
+                        <a href="/jianduControl" th:href="@{/jianduControl}"><i class="fa fa-book nav_icon"></i>监督管理</a>
+                    </li>
+                    <li class="">
+                        <a href="/invoiceList" th:href="@{/invoiceList}"><i class="fa fa-book nav_icon"></i>发票管理</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-envelope nav_icon"></i>投递管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/todicdeliverpart" th:href="@{/todicdeliverpart}" >投递段管理 </a>
+                            </li>
+                            <li>
+                                <a href="/todicorder" th:href="@{/todicorder}">分配订单</a>
+                            </li>
+                            <li>
+                                <a href="/todicpriority" th:href="@{/todicpriority}">投递排序</a>
+                            </li>
+                            <li>
+                                <a href="/todicrecinum" th:href="@{/todicrecinum}">下数单管理</a>
+                            </li>
+                            <li>
+                                <a href="/toshowrepay" th:href="@{/toshowrepay}">催款单打印</a>
+                            </li>
+                            <li>
+                                <a href="/toshowcompletion" th:href="@{/toshowcompletion}">完成情况登记</a>
+                            </li>
+                        </ul>
+                        <!-- //nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-envelope nav_icon"></i>人事管理 <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/todicstaff1" th:href="@{/todicstaff1}">员工信息设置 </a>
+                            </li>
+                            <li>
+                                <a href="/todicduty1" th:href="@{/todicduty1}">员工职务设置 </a>
+                            </li>
+                            <li>
+                                <a href="/toshowmerit" th:href="@{/toshowmerit}">业绩统计 </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-check-square-o nav_icon"></i>辅助业务<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/unReadMessageList" th:href="@{/unReadMessageList}">收取通知</a>
+                            </li>
+                            <li>
+                                <a href="/toSendMessage" th:href="@{/toSendMessage}">发送通知</a>
+                            </li>
+                            <li>
+                                <a href="/readMessageList" th:href="@{/readMessageList}">已阅读通知</a>
+                            </li>
+                            <li>
+                                <a href="/tochangePassword" th:href="@{/tochangePassword}">修改密码</a>
+                            </li>
+                        </ul>
+                        <!-- //nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-envelope nav_icon"></i>查询<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/toshowfapiao" th:href="@{/toshowfapiao}">发票查询</a>
+                            </li>
+                            <li>
+                                <a href="/toshowTongJi" th:href="@{/toshowTongJi}">统计查询</a>
+                            </li>
+                            <li>
+                                <a href="/toshowdeliver" th:href="@{/toshowdeliver}">投递查询</a>
+                            </li>
+                            <li>
+                                <a href="/toshowbaseinfo" th:href="@{/toshowbaseinfo}">报刊基础信息查询</a>
+                            </li>
+                            <li>
+                                <a href="/toshowpay" th:href="@{/toshowpay}">日常业务查询</a>
+                            </li>
+                            <li><br /><br />
+                            </li>
+                        </ul>
+                        <!-- //nav-second-level -->
+                    </li>
+                </ul>
+                <!-- //sidebar-collapse -->
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>

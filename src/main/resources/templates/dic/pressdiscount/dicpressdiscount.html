@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>报刊优惠设置</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript">
+	
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+</script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- js-->
+	<script type="text/javascript" src="js/setAllCheckBox.js"></script>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+
+<!--webfonts-->
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
+	rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css"
+	media="all">
+<script src="js/wow.min.js"></script>
+<script>
+	new WOW().init();
+</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div th:include="centerleftnav :: leftnav"></div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div th:include="head :: header(staffName=${session.staff.staffName})"></div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<div class="blank-page widget-shadow scroll" id="style-2 div1">
+					<div class="form-two widget-shadow">
+						<div class="form-title">
+							<h4>输入条件进行查询:</h4>
+						</div>
+						<div class="form-body" data-example-id="simple-form-inline">
+							<form class="form-inline" th:action="@{/dicpressdiscount}">
+							
+								<div class="form-group" style="float: left;margin-top:0px">
+									<label for="exampleInputEmail2">会员类型：</label> 
+									<select class="form-control1" name="vipTypeId" style="width:200px;height=10px;">
+                                			<option value="">请选择会员类型</option>
+                                			<option value="1">普通客户</option>
+                                			<option value="2">大客户</option>
+                                			<option value="3">会员</option>
+                           			</select>
+								</div>
+								
+								<div class="form-group" style="float: left;margin-top:0px">
+									<label for="exampleInputEmail2">报刊：</label> 
+									<select class="form-control1" name="pressId"  style="width:150px;height=10px;">
+                                			<option value="">请选择报刊</option>
+                                			<option th:value="${press.id}" th:text="${press.pressName}" th:each="press : ${presses}">--
+                                			</option>
+                           			</select>
+								</div>
+								
+								<div class="form-group" style="float: left;margin-top:0px">
+									<label for="exampleInputEmail2">订阅期限（周）：</label>
+									<select class="form-control1" name="duration"  style="width:150px;height=10px;">
+                                			<option value="">请选择时限</option>
+                                			<option value="1">1</option>
+                                			<option value="2">2</option>
+                                			<option value="3">3</option>
+                                			<option value="4">4</option>
+                                			<option value="5">5</option>
+                                			<option value="6">6</option>
+                                			<option value="7">7</option>
+                                			<option value="8">8</option>
+                                			<option value="9">9</option>
+                                			<option value="10">10</option>
+                                			<option value="11">11</option>
+                                			<option value="12">12</option>
+                           			</select>
+								</div>
+								
+								<!--  <a href="/dicDepart"><span class="label label-primary">搜索</span></a> -->
+								<button type="submit" class="btn btn-primary">搜索</button>
+								<!--  <a href="/findall"><span class="label label-primary">搜索全部</span></a> -->
+							</form>
+						</div>
+					</div>
+				</div>
+				<div style="width: 100%; height: 35px;">
+					<div style="float: left; margin-top: 20px">
+						<h3>
+							<a href="/topressdiscountadd"><span class="label label-primary">增加优惠策略</span></a>
+						</h3>
+					</div>
+					
+					<div class="col-lg-2 control-label"
+						style="float: left; margin-top: 20px">
+						<!--
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#gridSystemModal">
+							<h4>批量添加</h4>
+						</button>
+						-->
+						<div class="modal fade" id="gridSystemModal" tabindex="-1"
+							role="dialog" aria-labelledby="gridSystemModalLabel">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										<h4 class="modal-title" id="gridSystemModalLabel">选择文件上传</h4>
+									</div>
+									<div class="modal-body">
+										<form method="post" th:action="@{/uploadpressdiscount}"
+											enctype="multipart/form-data" class="modal-grids">
+											<input type="file" name="file" class="btn btn-primary" /></br> </br> <input
+												type="submit" value="提交" class="btn btn-primary">
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">关闭</button>
+									</div>
+								</div>
+								<!-- /.modal-content -->
+							</div>
+							<!-- /.modal-dialog -->
+						</div>
+						<!-- /.modal -->
+						
+					</div>
+
+					<div style="float: right; margin-top: 20px" >
+						<button class="btn btn-primary" onclick="document.getElementById('fdm').submit()"><h4>删除选中项</h4></button>
+					</div>
+				</div>
+
+
+				<div class="bs-example widget-shadow"
+					data-example-id="contextual-table">
+					<form th:action="@{/deletemanydiscount}" id="fdm">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th><input type="checkbox" id="quanxuan" onclick="checkAll(this)"></th>
+								<th>会员类型</th>
+								<th>报刊名称</th>
+								<th>订阅期限（周）</th>
+								<th>优惠策略</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="pressDiscount :${objectlist}">
+								<th scope="row"><input type="checkbox"  name="dx" th:value="${pressDiscount[4].toString()}+'@'+${pressDiscount[0].toString()}+'@'+${pressDiscount[2].toString()}" onclick="setqx()">
+								</th>
+								<td th:if="${pressDiscount[0]==0}">普通客户</td>
+								<td th:if="${pressDiscount[0]==1}">单位客户</td>
+								<td th:if="${pressDiscount[0]==2}">大客户</td>
+								<td th:if="${pressDiscount[0]==3}">会员</td>
+								<td th:text="${pressDiscount[1].toString()}">null</td>
+								<td th:text="${pressDiscount[2].toString()}">0</td>
+								<td th:if="${pressDiscount[3]==null}">-</td>
+								<td th:if="${pressDiscount[3]!=null}" th:text="${(pressDiscount[3]*100).toString()+'折'}">null</td>
+								<td><a th:href="@{/topressdiscountedit(pressId=${pressDiscount[4]}, vipTypeId=${pressDiscount[0]}, duration=${pressDiscount[2]})}">编辑</a>|<a
+									th:href="@{/topressdiscountdelete(pressId=${pressDiscount[4]}, vipTypeId=${pressDiscount[0]}, duration=${pressDiscount[2]})}">删除</a></td>
+							</tr>
+						</tbody>
+					</table>
+					</form>
+					<!--  <div th:text="${objectlist.getNumber()}">###</div> -->
+					<div th:if="${objectlist!=null}" th:include="listpage :: pager" th:remove="tag"></div>
+				</div>
+			</div>
+		</div>
+		<!--footer-->
+		<div class="footer"></div>
+		<!--//footer-->
+	</div>
+	<!-- Classie -->
+	<script src="js/classie.js"></script>
+	<script>
+		var menuLeft = document.getElementById('cbp-spmenu-s1'), showLeftPush = document
+				.getElementById('showLeftPush'), body = document.body;
+
+		showLeftPush.onclick = function() {
+			classie.toggle(this, 'active');
+			classie.toggle(body, 'cbp-spmenu-push-toright');
+			classie.toggle(menuLeft, 'cbp-spmenu-open');
+			disableOther('showLeftPush');
+		};
+
+		function disableOther(button) {
+			if (button !== 'showLeftPush') {
+				classie.toggle(showLeftPush, 'disabled');
+			}
+		}
+	</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js">
+		
+	</script>
+</body>
+</html>

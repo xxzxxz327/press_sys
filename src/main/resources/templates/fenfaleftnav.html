@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="fenfaleftnav">
+<body>
+<div th:fragment="leftnav">
+<div class=" sidebar" role="navigation">
+            <div class="navbar-collapse">
+				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+					<ul class="nav" id="side-menu">
+
+
+						<li>
+							<a href="#"><i class="fa fa-home nav_icon"></i>系统管理</a>
+							<ul class="nav nav-second-level collapse">
+								<li>
+									<a href="/sysPrint" th:href="@{/sysPrint}">印点设置</a>
+								</li>
+								<li>
+									<a href="/sysSend" th:href="@{/sysSend}">送报点设置</a>
+								</li>
+								<li>
+									<a href="/sysPs" th:href="@{/sysPs}">印点与送报点设置</a>
+								</li>
+								<li>
+									<a href="/sysRoute" th:href="@{/sysRoute}">路线设置</a>
+								</li>
+								<li>
+									<a href="/sysRoutegroup" th:href="@{/sysRoutegroup}">路线组合设置</a>
+								</li>
+								<li>
+									<a href="/sysPackage" th:href="@{/sysPackage}">打包份数设置</a>
+								</li>
+								<li>
+									<a href="/page" th:href="@{/page}">基本版面维护</a>
+								</li>
+							</ul>
+						</li>
+
+						
+						<li>
+							<a href="#"><i class="fa fa-bar-chart nav_icon"></i>汇总统计</a>
+							<ul class="nav nav-second-level collapse">
+								<li>
+									<a href="/pageInfo" th:href="@{/pageInfo}">当日版面信息维护</a>
+								</li>
+								<li>
+									<a href="/special" th:href="@{/special}">特别送报点要数</a>
+								</li>
+								<li>
+									<a href="/sumPrintnum" th:href="@{/sumPrintnum}">印数汇总</a>
+								</li>
+								<li>
+									<a href="/countDistribute" th:href="@{/countDistribute}">分发统计</a>
+								</li>
+							</ul>
+						</li>
+
+
+						<li>
+							<a href="#" class="chart-nav"><i class="fa fa-table nav_icon"></i>打印管理</a>
+							<ul class="nav nav-second-level collapse">
+								<li>
+									<a href="/toShowTransNum" th:href="@{/toShowTransNum}">打印运输单</a>
+								</li>
+								<li>
+									<a href="/showSendNum" th:href="@{/showSendNum}">打印分发单</a>
+								</li>
+								<li>
+									<a href="/showPrintNum" th:href="@{/showPrintNum}">打印印数单</a>
+								</li>
+							</ul>
+						</li>
+
+						<li>
+							<a href="#"><i class="fa fa-cogs nav_icon"></i>人事管理</a>
+							<ul class="nav nav-second-level collapse">
+								<li>
+									<a href="/todicstaff1" th:href="@{/todicstaff1}">员工信息设置 </a>
+								</li>
+								<li>
+									<a href="/todicduty1" th:href="@{/todicduty1}">员工职务设置 </a>
+								</li>
+							</ul>
+						</li>
+
+
+						<li class="">
+							<a href="#"><i class="fa fa-book nav_icon"></i>辅助业务</a>
+							<ul class="nav nav-second-level collapse">
+								<li>
+									<a href="/unReadMessageList" th:href="@{/unReadMessageList}">收取通知</a>
+								</li>
+								<li>
+									<a href="/toSendMessage" th:href="@{/toSendMessage}">发送通知</a>
+								</li>
+								<li>
+									<a href="/readMessageList" th:href="@{/readMessageList}">已阅读通知</a>
+								</li>
+								<li>
+									<a href="/tochangePassword" th:href="@{/tochangePassword}">修改密码</a>
+								</li>
+							</ul>
+							<!-- /nav-second-level -->
+						</li>
+					</ul>
+					<div class="clearfix"> </div>
+					<!-- //sidebar-collapse -->
+				</nav>
+			</div>
+		</div>
+</div>
+</body>
+</html>
